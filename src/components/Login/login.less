@@ -1,0 +1,95 @@
+.loginBox {
+  width: 625px;
+  margin: 0 auto;
+  margin-top: 10%;
+  padding: 56px 100px;
+  border: 1px solid #ccc;
+  background: white;
+  .logo {
+    width: 80px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  .loginInput{
+    :global(.ant-input-group-wrapper) {
+      margin-bottom: 16px;
+      :global(.ant-input-group-addon) {
+        padding-right: 16px;
+        background: white;
+        border: 0;
+        font-size:16px;
+        color: #5b626b;
+      }
+      :global(.ant-input) {
+        width: 360px;
+        padding: 0 0 14px 0;
+        background: white;
+        border: 0;
+        border-bottom: 1px solid #1fcfb9;
+        border-radius: 0;
+        font-size:16px;
+        color: rgba(91,98,107,.54);
+      }
+      &:focus{
+      }
+      :global(.ant-input-group-addon) {
+        padding-bottom: 13px;
+      }
+    }
+    >p{
+      text-align: end;
+      padding: 16px 0 24px 0;
+      font-size: 14px;
+      color: #6c7780;
+    }
+    a{
+      color: #6c7780;
+      text-decoration: underline;
+    }
+  }
+  .loginButton{
+    width: 360px;
+    margin-left: 62px;
+    :global(.ant-btn-block){
+      height: 48px;
+      padding: 0;
+      background: #1fcfb9;
+      font-size: 18px;
+      color: white;
+    }
+    :global(.ant-btn-block):last-child{
+      margin-top: 16px;
+      margin-bottom: 32px;
+    }
+  }
+  .thirdLogin{
+    text-align: center;
+    margin-left: 62px;
+    img{
+      width: 48px;
+      height: 48px;
+      margin: 0 24px;
+    }
+  }
+  .text{
+    width: 360px;
+    margin-left: 62px;
+    margin-top: 20px;
+    text-align: center;
+    .dashed{
+      display: inline-block;
+      width: 130px;
+      margin-bottom: 4px;
+      border-bottom: 1px dashed #c3c6c9;
+    }
+    & span:nth-child(2){
+      padding: 0 10px;
+      font-size: 14px;
+      color: #5b626b;
+    }
+  }
+}
