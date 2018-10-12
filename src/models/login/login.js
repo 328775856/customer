@@ -1,25 +1,40 @@
+import {get, post} from '../../services/api';
+import {routerRedux} from 'dva/router';
+
 export default {
   namespace: 'login',
   state: {
-    status: '200'
+    status: '',
+    userInfo: {}
   },
-  effect:{
-    *fetch(action,{call,put}){
-     const {data} =  yield call(function(){
-       fetch('http://localhost:8002/user/login',{
-         method:'post',
-         data: {
-           id:1
-         }
-       })
-     })
+  effects: {
+    * login(action, {call, put}) {
+      const {data} = yield call(post, '/user/login', action.payload);
+      if (data) {
+        sessionStorage.setItem('auth', data);
+        yield put(routerRedux.push({pathname: '/home'}));
+      }
+    },
+    * getUserInfo(action, {call, put}) {
+      const res = yield call(get, '/user/getCurrentUser');
+      yield put({
+        type: 'status',
+        payload: res.data
+      });
     }
   },
   reducers: {
-    'fetch'(state){
-      return (
-        <div></div>
-      )
-    },
-  },
-};
+    'status'(state, {payload}) {
+      state.userInfo = payload;
+      return {...state};
+    }
+  }
+  // subscriptions: {
+  //   setup({dispatch, history}){
+  //     history.listen(location=>{
+  //       console.log(location)
+  //     })
+  //   }
+  // }
+}
+;

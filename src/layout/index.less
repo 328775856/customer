@@ -1,0 +1,201 @@
+//   1.width、height、line-height、margin、padding、background、border
+//   2.display相关
+//   3.position相关
+//   4.font-size、color字体相关
+@import '/font/iconfont.css';
+//global
+:global {
+  .search{
+    span{
+      &:hover{
+        opacity: .8;
+      }
+    }
+  }
+  // siderBar
+  .siderBar {
+    .ant-menu-submenu-open.ant-menu-submenu {
+      background: RGBA(31, 207, 185, .1);
+      .ant-menu-submenu-title {
+        color: #1FCFB9;
+        .ant-menu-submenu-arrow {
+          &:before, &:after {
+            background: #1FCFB9;
+          }
+        }
+      }
+    }
+    .ant-menu-submenu .ant-menu-submenu-title {
+      color: #6C7780;
+      &:first-child {
+        margin-top: 0px;
+      }
+      &:hover {
+        color: #1FCFB9;
+        .ant-menu-submenu-arrow {
+          &:before, &:after {
+            background: #1FCFB9;
+          }
+        }
+      }
+      .ant-menu-submenu-arrow {
+        &:before, &:after {
+        }
+      }
+      i {
+        display: inline-block;
+        width: 40px;
+        text-align: center;
+      }
+    }
+
+    .ant-menu-item.ant-menu-item-selected {
+      &:after {
+        opacity: 0;
+      }
+      a{
+        color: #1FCFB9;
+      }
+    }
+    .ant-menu-item {
+      color: #6C7780;
+      a:hover {
+        color: #1FCFB9;
+      }
+      &:hover {
+        color: #1FCFB9;
+      }
+      i {
+        display: inline-block;
+        width: 40px;
+        text-align: center;
+      }
+    }
+    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+      background: RGBA(31, 207, 185, .1);
+      color: #1FCFB9;
+    }
+  }
+  //content
+  .ant-layout-content{
+    width:1568px;
+    height:841px;
+    border-radius:5px;
+    box-shadow:0px 0px 6px rgba(161,167,179,0.87);
+    .ant-input-affix-wrapper .ant-input{
+      padding-right: 87px;
+      &:hover{
+        border-color: #1FCFB9;
+      }
+      &:focus{
+        border-color: #1FCFB9;
+      }
+      &::selection{
+        border-color: red;
+      }
+      &::focus{
+        border-color: red;
+      }
+    }
+  }
+  .clearfix {
+    zoom: 1;
+    &:after {
+      display: block;
+      clear: both;
+      content: "";
+      visibility: hidden;
+      height: 0
+    }
+  }
+}
+
+//login
+.loginPage {
+  height: 100%;
+  padding-top: 8%;
+}
+
+//home
+.homePage {
+  height: 100%;
+  a{
+    text-decoration: none;
+  }
+  .header {
+    background: #2b3a4a;
+    height: 80px;
+    padding-top: 16px;
+    zoom: 1;
+    //清除浮动
+    .logo {
+      display: inline-block;
+      vertical-align: top;
+      width: 48px;
+      height: 48px;
+      background: url("../assets/images/login_logo.png") no-repeat;
+      background-size: contain;
+      & + div {
+        display: inline-block;
+        height: 48px;
+        line-height: 48px;
+        padding-left: 10px;
+        p:first-child {
+          height: 24px;
+          line-height: 24px;
+          margin: 0;
+          font-size: 20px;
+          color: rgba(255, 255, 255, .87);
+          & + p {
+            height: 24px;
+            line-height: 24px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, .54);
+          }
+        }
+      }
+    }
+    .userInfo {
+      float: right;
+      line-height: 56px;
+      a:first-child {
+        font-size: 16px;
+        color: rgba(255, 255, 255, .87);
+        &:hover {
+          color: #1FCFB9;
+        }
+      }
+      .personalCenter {
+        width: 120px;
+        height: 40px;
+        margin: 0 38px 0 41px;
+        background: rgba(31, 207, 185, .1);
+        border: 0;
+        border-radius: 20px;
+        font-size: 18px;
+        font-family: MicrosoftYaHei;
+        color: rgba(31, 207, 185, 1);
+      }
+      .userName {
+        width: 115px;
+        height: 16px;
+        padding-right: 10px;
+        font-size: 16px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 1);
+        opacity: 0.87;
+      }
+      .loignOut {
+        width: 115px;
+        height: 16px;
+        font-size: 16px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 1);
+        opacity: 0.87;
+        &:hover{
+          color: #1FCFB9;
+        }
+      }
+    }
+  }
+}

@@ -1,27 +1,22 @@
 import React from 'react';
-import { connect } from 'dva';
+import {connect} from 'dva';
 import ComLogin from '../../components/Login/login';
 
-const  Login= ({ dispatch, login }) => {
-  function handleDelete(id) {
+const Login = ({dispatch, login}) => {
+  function loginclick(val) {
     dispatch({
-      type: 'products/delete',
-      payload: id,
+      type: 'login/login',
+      payload: {...val}
     });
   }
-  function click(){
-    dispatch({
-      type: 'product/fetch',
-    })
-  }
   return (
-    <div style={{height:'100%',overflow:'hidden'}}>
-      <ComLogin login={login} />
+    <div style={{height: '100%'}}>
+      <ComLogin loginclick={loginclick}/>
     </div>
   );
 };
 
 // export default Products;
-export default connect(({ login }) => ({
-  login,
+export default connect(({login}) => ({
+  login
 }))(Login);

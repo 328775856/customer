@@ -1,10 +1,11 @@
-
-html, body, :global(#root) {
+:global(#root) {
   height: 100%;
+}
+body{
+  background: url("./assets/images/logbg.jpg") no-repeat;
+  background-size: cover;
 }
 :global(#root)>div{
   height: 100%;
-  background: url("./assets/images/logbg.jpg") no-repeat;
-  background-size: cover;
 }
 

@@ -24,5 +24,11 @@
     "husky": "^0.12.0",
     "redbox-react": "^1.4.3",
     "roadhog": "^2.0.0"
-  }
+  },
+  "name": "customer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/328775856/customer.git",
+  "author": "sunhao <sh@geeboo.cn>",
+  "license": "MIT"
 }
