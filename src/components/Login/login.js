@@ -1,22 +1,23 @@
 import React from 'react';
 import {Form, Input, Button} from 'antd';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
 import styles from './login.less';
 
 const FormItem = Form.Item;
-class NormalLoginForm extends React.Component{
+
+class NormalLoginForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
-    const {loginclick} = this.props
-    this.props.form.validateFields((err, values)=>{
-      if(!err){
-        loginclick(values)
+    const {loginclick} = this.props;
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        loginclick(values);
       }
     });
   };
 
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const {getFieldDecorator} = this.props.form;
     return (
       <div className={styles.loginBox}>
         <div className={styles.logo}>
@@ -25,13 +26,13 @@ class NormalLoginForm extends React.Component{
         <Form onSubmit={this.handleSubmit}>
           <div className={styles.loginInput}>
             <FormItem>
-              {getFieldDecorator('userCode',{
-                rules:[{required: true,message:'请输入您的账号'}]
+              {getFieldDecorator('userCode', {
+                rules: [{required: true, message: '请输入您的账号'}]
               })(<Input addonBefore={<p>账&nbsp;&nbsp;&nbsp;&nbsp;户</p>} placeholder="请输入您的账号"/>)}
             </FormItem>
             <FormItem>
-              {getFieldDecorator('passwd',{
-                rules:[{required: true,message:'请输入您的密码'}]
+              {getFieldDecorator('passwd', {
+                rules: [{required: true, message: '请输入您的密码'}]
               })(<Input addonBefore={<p>密&nbsp;&nbsp;&nbsp;&nbsp;码</p>} placeholder="请输入您的密码"/>)}
             </FormItem>
             <p>忘记密码？<Link to="/reset">点这里</Link></p>
@@ -55,7 +56,7 @@ class NormalLoginForm extends React.Component{
     );
   }
 };
-const login = Form.create()(NormalLoginForm)
+const login = Form.create()(NormalLoginForm);
 login.propTypes = {};
 
 export default login;

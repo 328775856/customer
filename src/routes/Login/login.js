@@ -10,7 +10,7 @@ const Login = ({dispatch, login}) => {
     });
   }
   return (
-    <div style={{height: '100%'}}>
+    <div className='login'>
       <ComLogin loginclick={loginclick}/>
     </div>
   );

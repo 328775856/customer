@@ -5,10 +5,45 @@
 @import '/font/iconfont.css';
 //global
 :global {
-  .search{
-    span{
-      &:hover{
+  //search
+  .search {
+    span {
+      &:hover {
         opacity: .8;
+      }
+    }
+  }
+  //modal
+  .ant-modal-content {
+    width: 400px;
+    height: 251px;
+    padding: 14px 16px 0px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 0px rgba(108, 119, 128, 0.2);
+    .ant-modal-header {
+      border-bottom: 0;
+      text-align: center;
+    }
+    .ant-modal-body {
+      border: 0;
+    }
+    div.ant-modal-footer {
+      border-top: 0;
+      text-align: center;
+      > button {
+        width: 100px;
+        height: 40px;
+        background: rgba(31, 207, 185, 1);
+        border-color: white;
+        border-radius: 5px;
+        font-size: 18px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 1);
+        opacity: 0.4;
+        &:hover {
+          opacity: 1;
+        }
       }
     }
   }
@@ -53,7 +88,7 @@
       &:after {
         opacity: 0;
       }
-      a{
+      a {
         color: #1FCFB9;
       }
     }
@@ -71,32 +106,319 @@
         text-align: center;
       }
     }
+    .ant-menu .ant-menu-item {
+      margin: 0;
+    }
     .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
       background: RGBA(31, 207, 185, .1);
       color: #1FCFB9;
     }
   }
   //content
-  .ant-layout-content{
-    width:1568px;
-    height:841px;
-    border-radius:5px;
-    box-shadow:0px 0px 6px rgba(161,167,179,0.87);
-    .ant-input-affix-wrapper .ant-input{
-      padding-right: 87px;
-      &:hover{
+  div.content {
+    height: auto;
+  }
+  .ant-layout-content {
+    width: 1568px;
+    height: 681px;
+    flex: none !important;
+    border-radius: 5px;
+    box-shadow: 0px 0px 6px rgba(161, 167, 179, 0.87);
+    .flex-r {
+      justify-content: space-between;
+      padding-bottom: 32px;
+      .icon-serch_ic_close {
+        padding-right: 16px;
+        color: #ccc;
+      }
+    }
+    .ant-input-affix-wrapper .ant-input {
+      padding-right: 120px;
+      &:hover {
         border-color: #1FCFB9;
       }
-      &:focus{
+      &:focus {
         border-color: #1FCFB9;
       }
-      &::selection{
+      &::selection {
         border-color: red;
       }
-      &::focus{
+      &::focus {
         border-color: red;
       }
     }
+    .pagination {
+      button {
+        width: 60px;
+        height: 48px;
+        border: 0;
+        font-size: 18px;
+        font-weight: bold;
+        background: #2B3A4A;
+        color: white;
+        &:nth-child(2) {
+          border-bottom-right-radius: 5px;
+          border-top-right-radius: 5px;
+        }
+        &:last-child {
+          width: 120px;
+          height: 48px;
+          margin-left: 20px;
+          background: white;
+          border: 1px solid rgba(195, 198, 201, 1);
+          border-radius: 5px;
+          font-size: 18px;
+          font-family: MicrosoftYaHei;
+          font-weight: 400;
+          color: rgba(91, 98, 107, 1);
+        }
+      }
+    }
+    .ant-table-placeholder {
+      min-height: 500px;
+      .noData-wrapper {
+        display: inline-block;
+        margin-top: 100px;
+        .noData {
+          width: 160px;
+          height: 184px;
+          background: url("../assets/images/empty.png") no-repeat;
+          background-size: contain;
+        }
+      }
+    }
+    //myBooks
+    .myBooks {
+      .ant-table table {
+        width: 1248px;
+        height: 56px;
+        .ant-table-thead th {
+          background: #2B3A4A;
+          border: 0;
+          font-size: 18px;
+          font-family: MicrosoftYaHei;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 1);
+        }
+        .ant-table-tbody {
+          > tr {
+            > td {
+              border-right: 0;
+              &:last-child {
+                border-right: 1px #ccc solid;
+              }
+              .options {
+                > span {
+                  display: inline-block;
+                  vertical-align: middle;
+                  padding-right: 40px;
+                  > span {
+                    margin-right: 20px;
+                  }
+                }
+                > i {
+                  display: inline-block;
+                  vertical-align: middle;
+                  &:before {
+                    padding-right: 20px;
+                  }
+                }
+                .ant-switch-checked {
+                  background: #1FCFB9;
+                }
+              }
+            }
+          }
+        }
+      }
+      .sider {
+        width: 200px;
+        h5 {
+          width: 80px;
+          height: 56px;
+          padding-bottom: 24px;
+          font-size: 20px;
+          font-family: MicrosoftYaHei;
+          font-weight: 400;
+          color: rgba(91, 98, 107, 1);
+        }
+        label {
+          display: inline-block;
+          width: 200px;
+          height: 48px;
+          line-height: 48px;
+          margin-bottom: 16px;
+          background: rgba(31, 207, 185, 1);
+          opacity: .3;
+          border-radius: 5px;
+          text-align: center;
+          font-size: 18px;
+          font-family: MicrosoftYaHei;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 1);
+          &.ant-radio-button-wrapper-checked {
+            border-color: rgba(31, 207, 185, 1);
+            opacity: 1;
+          }
+          &:hover {
+            border-color: rgba(31, 207, 185, 1);
+            opacity: 1;
+          }
+          &:focus {
+            border-color: rgba(31, 207, 185, 1);
+            opacity: .3;
+          }
+        }
+        .uploadBooks {
+          width: 200px;
+          height: 137px;
+          margin-top: 40px;
+          padding-top: 32px;
+          display: inline-block;
+          background: rgba(31, 207, 185, .1);
+          border-radius: 5px;
+          text-align: center;
+          cursor: pointer;
+          .icon-ic_shangchuan {
+            font-size: 30px;
+            color: rgba(91, 98, 107, 1);
+          }
+          .ant-upload-text {
+            height: 18px;
+            font-size: 18px;
+            font-family: MicrosoftYaHei;
+            font-weight: 400;
+            color: rgba(91, 98, 107, 1);
+          }
+        }
+      }
+    }
+
+    //myGrouping
+    .myGrouping {
+      .flex-r > button {
+        width: 160px;
+        height: 48px;
+        background: rgba(31, 207, 185, 1);
+        border-radius: 5px;
+        font-size: 18px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 1);
+        border: 0;
+      }
+      .flex-r > .table {
+        width: 100%;
+      }
+      .ant-table table {
+        height: 56px;
+        .ant-table-thead th {
+          background: #2B3A4A;
+          border: 0;
+          font-size: 18px;
+          font-family: MicrosoftYaHei;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 1);
+        }
+        .ant-table-tbody {
+          > tr {
+            > td {
+              border-right: 0;
+              &:last-child {
+                border-right: 1px #ccc solid;
+              }
+              .options {
+                > span {
+                  display: inline-block;
+                  vertical-align: middle;
+                  padding-right: 40px;
+                  > span {
+                    margin-right: 20px;
+                  }
+                }
+                > i {
+                  display: inline-block;
+                  vertical-align: middle;
+                  &:before {
+                    padding-right: 20px;
+                  }
+                }
+                .ant-switch-checked {
+                  background: #1FCFB9;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    //uploadBooks
+    .uploadBooks {
+      text-align: center;
+      label {
+        width: 160px;
+        height: 48px;
+        line-height: 48px;
+        background: rgba(108, 119, 128, 1);
+        opacity: 0.5;
+        border-radius: 5px;
+        font-size: 18px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 1);
+        &:last-child {
+          margin-left: 32px;
+        }
+        &.ant-radio-button-wrapper-checked {
+          border: 0;
+          background: rgba(31, 207, 185, 1);
+          opacity: 1;
+          &:before {
+            //background-color: #fff !important;
+            //opacity: 0;
+          }
+        }
+      }
+      .allStart {
+      }
+      .table {
+        width: 100%;
+        .ant-table-body {
+          th {
+            background: #2B3A4A;
+            border: 0;
+            font-size: 18px;
+            font-family: MicrosoftYaHei;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 1);
+          }
+        }
+      }
+    }
+    .ant-radio-button-wrapper-checked {
+      border-color: rgba(31, 207, 185, 1);
+      opacity: 1;
+    }
+  }
+  .tips {
+    display: block;
+    width: 461px;
+    height: 147px;
+    padding-top: 39px;
+    font-size: 16px;
+    font-family: MicrosoftYaHei;
+    font-weight: 400;
+    color: rgba(91, 98, 107, 1);
+    line-height: 16px;
+    opacity: 0.54;
+    h4 {
+      font-size: 20px;
+      color: rgba(91, 98, 107, 1);
+    }
+  }
+  .hide {
+    display: none;
   }
   .clearfix {
     zoom: 1;
@@ -112,14 +434,14 @@
 
 //login
 .loginPage {
-  height: 100%;
-  padding-top: 8%;
+  .loginBox {
+  }
 }
 
 //home
 .homePage {
   height: 100%;
-  a{
+  a {
     text-decoration: none;
   }
   .header {
@@ -192,7 +514,7 @@
         font-weight: 400;
         color: rgba(255, 255, 255, 1);
         opacity: 0.87;
-        &:hover{
+        &:hover {
           color: #1FCFB9;
         }
       }

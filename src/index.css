@@ -1,11 +1,67 @@
-:global(#root) {
+:global(#root), :global(#root) > div, :global(#root) > div > div {
   height: 100%;
+  overflow: hidden;
 }
-body{
+
+html {
+}
+
+body {
+}
+
+:global(#root) :global(.login) {
+  padding: 10%;
   background: url("./assets/images/logbg.jpg") no-repeat;
   background-size: cover;
 }
-:global(#root)>div{
-  height: 100%;
+
+:global(.flex-r) {
+  -webkit-display: flex;
+  -moz-display: flex;
+  -ms-display: flex;
+  -o-display: flex;
+  -khtml-display: flex;
+  display: flex;
+  -webkit-flex-flow: row nowrap;
+  -moz-flex-flow: row nowrap;
+  -ms-flex-flow: row nowrap;
+  -o-flex-flow: row nowrap;
+  -khtml-flex-flow: row nowrap;
+  flex-flow: row nowrap;
 }
+
+:global(.flex-c) {
+  -webkit-flex: column;
+  -moz-flex: column;
+  -ms-flex: column;
+  -o-flex: column;
+  -khtml-flex: column;
+  flex: column;
+  -webkit-flex-flow: column nowrap;
+  -moz-flex-flow: column nowrap;
+  -ms-flex-flow: column nowrap;
+  -o-flex-flow: column nowrap;
+  -khtml-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+}
+
+:global(.jus) {
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  -khtml-justify-content: center;
+  justify-content: center;
+}
+
+:global(.ala) {
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  -khtml-align-items: center;
+  align-items: center;
+}
+
+
 

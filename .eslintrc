@@ -554,7 +554,7 @@
     //防止在componentDidUpdate中使用setState
     'react/no-direct-mutation-state': 2,
     //防止this.state的直接变异
-    'react/no-multi-comp': 1,
+    'react/no-multi-comp': 0,
     //防止每个文件有多个组件定义
     'react/no-set-state': 0,
     //防止使用setState
@@ -599,7 +599,7 @@
     'no-restricted-globals': 1,
     'arrow-body-style': 1,
     'no-useless-escape': 1,
-    'prefer-template': 1,
+    'prefer-template': 0,
     'react/jsx-tag-spacing': 1,
     'react/jsx-first-prop-new-line': 1
   }
