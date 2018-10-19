@@ -24,7 +24,7 @@ class sider extends Component {
             <Radio.Button value="donatedBooks">受赠的书</Radio.Button>
             <Radio.Button value="purchasedBooks">购买的书</Radio.Button>
           </Radio.Group>
-          <Link to='/home/libraries/uploadBooks' className='uploadBooks'>
+          <Link to='/home/libraries/books/uploadBooks' className='uploadBooks'>
             <i className='iconfont icon-ic_shangchuan'></i>
             <div className="ant-upload-text">上传图书
             </div>

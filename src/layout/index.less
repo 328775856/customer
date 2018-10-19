@@ -13,6 +13,187 @@
       }
     }
   }
+  //cell
+  .cell {
+    width: 496px;
+    height: 431px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 0px 0px rgba(161, 167, 179, 0.87);
+    border: 1px #ccc solid;
+    border-radius: 5px;
+    .cell-text.flex-r {
+      padding-bottom: 0;
+      .text {
+        width: 80px;
+        height: 20px;
+        font-size: 20px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(91, 98, 107, 1);
+      }
+      .time {
+        width: 139px;
+        height: 14px;
+        font-size: 16px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(91, 98, 107, 1);
+        opacity: 0.54;
+      }
+      >button{
+        width:100px;
+        height:40px;
+        background:rgba(245,245,245,1);
+        border-radius:5px;
+        font-size:18px;
+        font-family:MicrosoftYaHei;
+        font-weight:400;
+        color:rgba(91,98,107,1);
+      }
+    }
+    .cell-img {
+      padding: 47px 0 40px 0;
+      img {
+        width: 416px;
+        height: 160px;
+        border-radius: 5px;
+      }
+    }
+    .cell-btn{
+      text-align: center;
+      >button{
+        width:120px;
+        height:48px;
+        background:rgba(31,207,185,1);
+        border-radius:5px;
+        font-size:18px;
+        font-family:MicrosoftYaHei;
+        font-weight:400;
+        color:rgba(255,255,255,1);
+      }
+    }
+  }
+  //common
+  input{
+    box-shadow: none!important;
+  }
+  ul.ant-dropdown-menu {
+    margin-top: 16px;
+  }
+  .myGrouping, .myBorrow, .myNote, .myRecord {
+    .flex-r > button {
+      width: 160px;
+      height: 48px;
+      background: rgba(31, 207, 185, 1);
+      border-radius: 5px;
+      font-size: 18px;
+      font-family: MicrosoftYaHei;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 1);
+      border: 0;
+    }
+    .flex-r > .table {
+      width: 100%;
+    }
+    .ant-table table {
+      height: 56px;
+      .ant-table-thead th {
+        background: #2B3A4A;
+        border: 0;
+        font-size: 18px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 1);
+      }
+      .ant-table-tbody {
+        > tr {
+          > td {
+            border-right: 0;
+            &:last-child {
+              border-right: 1px #ccc solid;
+            }
+            .options {
+              > span {
+                display: inline-block;
+                vertical-align: middle;
+                padding-right: 40px;
+                > span {
+                  margin-right: 20px;
+                }
+              }
+              > i {
+                display: inline-block;
+                vertical-align: middle;
+                &:before {
+                  padding-right: 20px;
+                }
+              }
+              .ant-switch-checked {
+                background: #1FCFB9;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .flex-r > button {
+      width: 160px;
+      height: 48px;
+      background: rgba(31, 207, 185, 1);
+      border-radius: 5px;
+      font-size: 18px;
+      font-family: MicrosoftYaHei;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 1);
+      border: 0;
+    }
+    .flex-r > .table {
+      width: 100%;
+    }
+    .ant-table table {
+      height: 56px;
+      .ant-table-thead th {
+        background: #2B3A4A;
+        border: 0;
+        font-size: 18px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 1);
+      }
+      .ant-table-tbody {
+        > tr {
+          > td {
+            border-right: 0;
+            &:last-child {
+              border-right: 1px #ccc solid;
+            }
+            .options {
+              > span {
+                display: inline-block;
+                vertical-align: middle;
+                padding-right: 40px;
+                > span {
+                  margin-right: 20px;
+                }
+              }
+              > i {
+                display: inline-block;
+                vertical-align: middle;
+                &:before {
+                  padding-right: 20px;
+                }
+              }
+              .ant-switch-checked {
+                background: #1FCFB9;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   //modal
   .ant-modal-content {
     width: 400px;
@@ -296,63 +477,159 @@
 
     //myGrouping
     .myGrouping {
-      .flex-r > button {
-        width: 160px;
+    }
+    //myBorrow
+    .myBorrow {
+      .pagination {
+        flex: 1 0 auto;
+        text-align: right;
+      }
+      .ant-dropdown-trigger {
+        width: 48px;
         height: 48px;
-        background: rgba(31, 207, 185, 1);
-        border-radius: 5px;
-        font-size: 18px;
-        font-family: MicrosoftYaHei;
-        font-weight: 400;
-        color: rgba(255, 255, 255, 1);
-        border: 0;
-      }
-      .flex-r > .table {
-        width: 100%;
-      }
-      .ant-table table {
-        height: 56px;
-        .ant-table-thead th {
-          background: #2B3A4A;
-          border: 0;
-          font-size: 18px;
-          font-family: MicrosoftYaHei;
-          font-weight: 400;
-          color: rgba(255, 255, 255, 1);
-        }
-        .ant-table-tbody {
-          > tr {
-            > td {
-              border-right: 0;
-              &:last-child {
-                border-right: 1px #ccc solid;
-              }
-              .options {
-                > span {
-                  display: inline-block;
-                  vertical-align: middle;
-                  padding-right: 40px;
-                  > span {
-                    margin-right: 20px;
-                  }
-                }
-                > i {
-                  display: inline-block;
-                  vertical-align: middle;
-                  &:before {
-                    padding-right: 20px;
-                  }
-                }
-                .ant-switch-checked {
-                  background: #1FCFB9;
-                }
-              }
-            }
+        line-height: 48px;
+        padding: 0;
+        margin-left: 40px;
+        background: white;
+        color: #1FCFB9;
+        .icon-ic_more {
+          font-size: 46px;
+          &:before {
           }
         }
       }
     }
 
+    //myNote
+    .myNote {
+      .flex-r {
+        -webkit-align-items: center;
+        -moz-align-items: center;
+        -ms-align-items: center;
+        -o-align-items: center;
+        -khtml-align-items: center;
+        align-items: center;
+      }
+      .ant-radio-button-wrapper {
+        width: 32px;
+        height: 32px;
+        margin-right: 4px;
+        padding: 0;
+        background: white;
+        border: 1px solid rgba(195, 198, 201, 1);
+        border-radius: 5px;
+        border-radius: 5px;
+        font-size: 20px;
+        color: #6C7780;
+        text-align: center;
+        &:not(:first-child)::before {
+          content: none;
+        }
+        &.ant-radio-button-wrapper-checked {
+          background: #6C7780;
+          color: white;
+          box-shadow: none;
+        }
+      }
+    }
+    //myRecord
+    .myRecord {
+      .flex-r {
+        -webkit-align-items: center;
+        -moz-align-items: center;
+        -ms-align-items: center;
+        -o-align-items: center;
+        -khtml-align-items: center;
+        align-items: center;
+      }
+      .ant-radio-button-wrapper {
+        width: 32px;
+        height: 32px;
+        margin-right: 4px;
+        padding: 0;
+        background: white;
+        border: 1px solid rgba(195, 198, 201, 1);
+        border-radius: 5px;
+        border-radius: 5px;
+        font-size: 20px;
+        color: #6C7780;
+        text-align: center;
+        &:not(:first-child)::before {
+          content: none;
+        }
+        &.ant-radio-button-wrapper-checked {
+          background: #6C7780;
+          color: white;
+          box-shadow: none;
+        }
+      }
+    }
+    //myDatum
+    .myDatum {
+      .flex-r {
+        section {
+          &:first-child {
+            width: 360px;
+            height: 245px;
+            margin-right: 40px;
+            background: rgba(255, 255, 255, 1);
+            border: 1px solid #ccc;
+            box-shadow: 0px 0px 0px rgba(108, 119, 128, 0.87);
+            border-radius: 5px;
+            text-align: center;
+            img {
+              width: 120px;
+              height: 120px;
+              margin: 40px 0 24px 0;
+              border-radius: 50%;
+              display: inline-block;
+            }
+            a {
+              font-size: 20px;
+              font-family: MicrosoftYaHei;
+              font-weight: 400;
+              text-decoration: underline;
+              color: rgba(108, 119, 128, 1);
+            }
+          }
+          &:last-child {
+            width: 1170px;
+            height: 610px;
+            padding: 40px;
+            border: 1px solid #ccc;
+            box-shadow: 0px 0px 0px rgba(108, 119, 128, 0.87);
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+    //contribute
+    .contribute {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      .create{
+        width:496px;
+        height:431px;
+        margin: 0 20px 40px 20px;
+        background:rgba(31,207,185,0.1);
+        box-shadow:0px 0px 0px rgba(161,167,179,0.87);
+        border: 1px #ccc solid;
+        border-radius:5px;
+        >i:before{
+          font-size: 50px;
+          color: #1FCFB9;
+        }
+        >p{
+          font-size:20px;
+          font-family:MicrosoftYaHei;
+          font-weight:400;
+          color:rgba(91,98,107,1);
+        }
+      }
+      .cell{
+        margin: 0 20px 40px 20px
+      }
+    }
     //uploadBooks
     .uploadBooks {
       text-align: center;
@@ -374,10 +651,7 @@
           border: 0;
           background: rgba(31, 207, 185, 1);
           opacity: 1;
-          &:before {
-            //background-color: #fff !important;
-            //opacity: 0;
-          }
+          box-shadow: none;
         }
       }
       .allStart {

@@ -33,7 +33,7 @@ class NormalLoginForm extends React.Component {
             <FormItem>
               {getFieldDecorator('passwd', {
                 rules: [{required: true, message: '请输入您的密码'}]
-              })(<Input addonBefore={<p>密&nbsp;&nbsp;&nbsp;&nbsp;码</p>} placeholder="请输入您的密码"/>)}
+              })(<Input type='password' addonBefore={<p>密&nbsp;&nbsp;&nbsp;&nbsp;码</p>} placeholder="请输入您的密码"/>)}
             </FormItem>
             <p>忘记密码？<Link to="/reset">点这里</Link></p>
           </div>

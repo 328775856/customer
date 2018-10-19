@@ -7,13 +7,31 @@ import styles from './index.less';
 
 //common组件
 import UserInfo from '../components/common/userInfo';
+//主页
+import Home from '../components/Home';
 //我的书馆>我的图书
-import MybooksIndex from '../components/Mybooks/Index';
+import MybooksIndex from '../components/Mybooks';
 import UploadBooks from '../components/Mybooks/UploadBooks';
 //我的书馆>我的分组
-import MygroupingIndex from '../components/MyGrouping/Index';
+import MygroupingIndex from '../components/MyGrouping';
 //我的借阅
-import MyBorrow from '../components/MyBorrow/Index';
+import MyBorrow from '../components/MyBorrow';
+//我的笔记
+import MyNote from '../components/MyNote';
+//我的档案
+import MyRecord from '../components/MyRecord';
+//我的资料
+import MyDatum from '../components/MyDatum';
+//我的投稿>我的投稿
+import MyContribute from '../components/MyContribute';
+//我的投稿>我的投稿>新建投稿
+import CreateNew from '../components/MyContribute/CreateNew';
+//我的投稿>收入统计
+import MyIncome from '../components/MyContribute/MyIncome';
+//我的投稿>我的素材图片
+import MyPhotos from '../components/MyContribute/MyPhotos';
+//我的投稿>我的素材录音
+import MyAudio from '../components/MyContribute/MyAudio';
 //路由映射
 import {BreadcrumbJosn, subMenuDefalutJson, keyDefalutJson} from './Router_name';
 
@@ -36,7 +54,12 @@ class HomePage extends Component {
   }
 
   UNSAFE_componentWillReceiveProps() {
-    if (this.props.history.location.pathname === '/home/libraries/uploadBooks') {
+    if(this.props.history.location.pathname === '/home/libraries/books/uploadBooks'){
+      document.getElementsByClassName('content')[0].className = 'content contribute ant-layout-content';
+    }else{
+
+    }
+    if (this.props.history.location.pathname === '/home/libraries/books/uploadBooks') {
       this.setState({isTips: true});
     } else {
       this.setState({isTips: false});
@@ -93,10 +116,10 @@ class HomePage extends Component {
             >
               <UserInfo></UserInfo>
               <SubMenu key="libraries" title={<span><i className='iconfont icon-ic_wodeYunshuguan_de'></i>我的云书馆</span>}>
-                <Menu.Item key="libraries-books">
+                <Menu.Item key="myBooks">
                   <Link to="/home/libraries/books">我的图书</Link>
                 </Menu.Item>
-                <Menu.Item key="libraries-grouping">
+                <Menu.Item key="myGrouping">
                   <Link to="/home/libraries/grouping">我的分组</Link>
                 </Menu.Item>
               </SubMenu>
@@ -107,22 +130,36 @@ class HomePage extends Component {
                 </Link>
               </Menu.Item>
               <Menu.Item key="note">
-                <i className='iconfont icon-ic_wodebiji_default'></i>
-                <span>我的笔记</span>
+                <Link to="/home/note">
+                  <i className='iconfont icon-ic_wodebiji_default'></i>
+                  我的笔记
+                </Link>
               </Menu.Item>
               <Menu.Item key="record">
-                <i className='iconfont icon-ic_wodedangan_defaul'></i>
-                <span>我的档案</span>
+                <Link to="/home/record">
+                  <i className='iconfont icon-ic_wodedangan_defaul'></i>
+                  我的档案
+                </Link>
               </Menu.Item>
               <Menu.Item key="datum">
-                <i className='iconfont icon-ic_wodeziliao_defaul'></i>
-                <span>我的资料</span>
+                <Link to="/home/datum">
+                  <i className='iconfont icon-ic_wodeziliao_defaul'></i>
+                  我的资料
+                </Link>
               </Menu.Item>
               <SubMenu key="contribute" title={<span><i className='iconfont icon-ic_wodetougao_defaul'></i>我的投稿</span>}>
-                <Menu.Item key="12">option5</Menu.Item>
-                <Menu.Item key="13">option6</Menu.Item>
-                <Menu.Item key="14">option7</Menu.Item>
-                <Menu.Item key="15">option8</Menu.Item>
+                <Menu.Item key="myContribute">
+                  <Link to="/home/contribute">我的投稿</Link>
+                </Menu.Item>
+                <Menu.Item key="income">
+                  <Link to="/home/contribute/income">收入统计</Link>
+                </Menu.Item>
+                <Menu.Item key="myPhotos">
+                  <Link to="/home/contribute/photos">我的素材图片</Link>
+                </Menu.Item>
+                <Menu.Item key="myAudio">
+                  <Link to="/home/contribute/audio">我的素材录音</Link>
+                </Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>
@@ -132,13 +169,29 @@ class HomePage extends Component {
             </Breadcrumb>
             <Content
               className={this.state.isTips ? '' : 'content'}
-              style={{background: '#fff', padding: 24, margin: 0, minHeight: 280}}
+              style={{background: '#fff', padding: 40, paddingBottom: 0, margin: 0, minHeight: 280}}
             >
               <Switch>
+                {/*主页*/}
+                <Route path='/home' exact component={Home}/>
+                {/*我的云书馆*/}
                 <Route path='/home/libraries/books' exact component={MybooksIndex}/>
-                <Route path='/home/libraries/uploadBooks' component={UploadBooks}/>
+                <Route path='/home/libraries/books/uploadBooks' component={UploadBooks}/>
                 <Route path='/home/libraries/grouping' component={MygroupingIndex}/>
+                {/*我的借阅*/}
                 <Route path='/home/borrow' component={MyBorrow}/>
+                {/*我的笔记*/}
+                <Route path='/home/note' component={MyNote}/>
+                {/*我的档案*/}
+                <Route path='/home/record' component={MyRecord}/>
+                {/*我的资料*/}
+                <Route path='/home/datum' component={MyDatum}/>
+                {/*我的投稿*/}
+                <Route path='/home/contribute' exact component={MyContribute}/>
+                <Route path='/home/contribute/createNew' exact component={CreateNew}/>
+                <Route path='/home/contribute/income' component={MyIncome}/>
+                <Route path='/home/contribute/photos' component={MyPhotos}/>
+                <Route path='/home/contribute/audio' component={MyAudio}/>
               </Switch>
             </Content>
             <div className={this.state.isTips ? 'tips' : 'hide'}>

@@ -5,7 +5,6 @@
 
 html {
 }
-
 body {
 }
 
@@ -31,12 +30,12 @@ body {
 }
 
 :global(.flex-c) {
-  -webkit-flex: column;
-  -moz-flex: column;
-  -ms-flex: column;
-  -o-flex: column;
-  -khtml-flex: column;
-  flex: column;
+  -webkit-display: flex;
+  -moz-display: flex;
+  -ms-display: flex;
+  -o-display: flex;
+  -khtml-display: flex;
+  display: flex;
   -webkit-flex-flow: column nowrap;
   -moz-flex-flow: column nowrap;
   -ms-flex-flow: column nowrap;
