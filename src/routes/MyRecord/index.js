@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import Pagination from '../common/pagination';
-import Table from '../common/table';
+import Pagination from '../../components/common/pagination';
+import LetterSearch from '../../components/common/letterSearch';
+import Table from '../../components/common/table';
 import {Button, Icon, Modal, Input} from 'antd';
 
 class Index extends Component {
   constructor(props) {
     super(props);
-
     // this.state = {
     //   dataSource: [{
     //     key: '1',
@@ -113,7 +113,6 @@ class Index extends Component {
       visible: false
     };
   }
-
   addModalShow = () => {
     this.setState({visible: true});
   };
@@ -123,15 +122,15 @@ class Index extends Component {
   handleCancel = () => {
     this.setState({visible: false});
   };
-
   render() {
     return (
-      <div className='myGrouping'>
+      <div className='myRecord'>
         <section className='flex-r'>
           <Button onClick={this.addModalShow}>
-            <Icon type="plus" />重建分组
+            <Icon type="plus" />新建档案夹
           </Button>
-          <Pagination></Pagination>
+          <LetterSearch></LetterSearch>
+          <Pagination className='pagination'></Pagination>
         </section>
         <section className='flex-r'>
           <Table dataSource={this.state.dataSource} columnsData={this.state.columnsData} message='没有匹配的书籍哦！'></Table>
@@ -140,7 +139,7 @@ class Index extends Component {
           centered
           visible={this.state.visible}
           closable={false}
-          title='新建分组'
+          title='新建档案夹'
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={[
@@ -150,7 +149,7 @@ class Index extends Component {
             <Button key="back" onClick={this.handleCancel}>取消</Button>
           ]}
         >
-          <Input placeholder='新建分组' />
+          <Input placeholder='请输入档案名称' />
         </Modal>
       </div>
     );

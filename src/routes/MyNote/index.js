@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import Pagination from '../common/pagination';
-import SearchInput from '../common/searchInput';
-import Table from '../common/table';
-import {Button, Menu, Dropdown} from 'antd';
+import Pagination from '../../components/common/pagination';
+import LetterSearch from '../../components/common/letterSearch';
+import Table from '../../components/common/table';
 
 class Index extends Component {
   constructor(props) {
@@ -115,28 +114,11 @@ class Index extends Component {
   }
 
   render() {
-    const menu = (
-      <Menu>
-        <Menu.Item key="0">
-          <a href="http://www.alipay.com/">1st menu item</a>
-        </Menu.Item>
-        <Menu.Item key="1">
-          <a href="http://www.taobao.com/">2nd menu item</a>
-        </Menu.Item>
-        <Menu.Divider/>
-        <Menu.Item key="3">3rd menu item</Menu.Item>
-      </Menu>
-    );
     return (
-      <div className='myBorrow'>
+      <div className='myNote'>
         <section className='flex-r'>
-          <SearchInput></SearchInput>
+          <LetterSearch></LetterSearch>
           <Pagination className='pagination'></Pagination>
-          <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
-            <Button>
-              <i className='iconfont icon-ic_more'></i>
-            </Button>
-          </Dropdown>
         </section>
         <section className='flex-r'>
           <Table dataSource={this.state.dataSource} columnsData={this.state.columnsData} message='没有匹配的书籍哦！'></Table>

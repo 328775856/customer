@@ -1,15 +1,15 @@
-import React, {Component} from 'react'
-import Login from '../routes/Login/login'
-import styles from './index.less'
+import React, {Component} from 'react';
+import Login from '../routes/Login/login';
+import {Route, Switch} from 'dva/router';
 
 class LoginPage extends Component {
   render() {
-    return(
-      <div className={styles.loginPage}>
-        <Login></Login>
-      </div>
-    )
+    return (
+      <Switch>
+        <Route path='/' component={Login}></Route>
+      </Switch>
+    );
   }
 }
 
-export default LoginPage
+export default LoginPage;

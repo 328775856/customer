@@ -8,32 +8,32 @@ import styles from './index.less';
 //common组件
 import UserInfo from '../components/common/userInfo';
 //主页
-import Home from '../components/Home';
+import Home from '../routes/Home';
 //我的书馆>我的图书
-import MybooksIndex from '../components/Mybooks';
-import UploadBooks from '../components/Mybooks/UploadBooks';
+import MybooksIndex from '../routes/Mybooks';
+import UploadBooks from '../routes/Mybooks/UploadBooks';
 //我的书馆>我的分组
-import MygroupingIndex from '../components/MyGrouping';
+import MygroupingIndex from '../routes/MyGrouping';
 //我的借阅
-import MyBorrow from '../components/MyBorrow';
+import MyBorrow from '../routes/MyBorrow';
 //我的笔记
-import MyNote from '../components/MyNote';
+import MyNote from '../routes/MyNote';
 //我的档案
-import MyRecord from '../components/MyRecord';
+import MyRecord from '../routes/MyRecord';
 //我的资料
-import MyDatum from '../components/MyDatum';
+import MyDatum from '../routes/MyDatum';
 //我的投稿>我的投稿
-import MyContribute from '../components/MyContribute';
+import MyContribute from '../routes/MyContribute';
 //我的投稿>我的投稿>新建投稿
-import CreateNew from '../components/MyContribute/CreateNew';
+import CreateNew from '../routes/MyContribute/CreateNew';
 //我的投稿>收入统计
-import MyIncome from '../components/MyContribute/MyIncome';
+import MyIncome from '../routes/MyContribute/MyIncome';
 //我的投稿>我的素材图片
-import MyPhotos from '../components/MyContribute/MyPhotos';
+import MyPhotos from '../routes/MyContribute/MyPhotos';
 //我的投稿>我的素材录音
-import MyAudio from '../components/MyContribute/MyAudio';
+import MyAudio from '../routes/MyContribute/MyAudio';
 //路由映射
-import {BreadcrumbJosn, subMenuDefalutJson, keyDefalutJson} from './Router_name';
+import {BreadcrumbJosn, subMenuDefalutJson, keyDefalutJson} from './map';
 
 const {SubMenu} = Menu;
 const {Sider, Header, Content} = Layout;
@@ -54,9 +54,9 @@ class HomePage extends Component {
   }
 
   UNSAFE_componentWillReceiveProps() {
-    if(this.props.history.location.pathname === '/home/libraries/books/uploadBooks'){
+    if (this.props.history.location.pathname === '/home/libraries/books/uploadBooks') {
       document.getElementsByClassName('content')[0].className = 'content contribute ant-layout-content';
-    }else{
+    } else {
 
     }
     if (this.props.history.location.pathname === '/home/libraries/books/uploadBooks') {
@@ -90,7 +90,7 @@ class HomePage extends Component {
 
   render() {
     // console.log(this.state.isTips,'1')
-    const {userName} = this.props.login.userInfo || '';
+    const {userInfo:{nickname}} = this.props.login || '';
     return (
       <Layout className={styles.homePage}>
         <Header className={styles.header}>
@@ -102,7 +102,7 @@ class HomePage extends Component {
           <div className={styles.userInfo}>
             <Link to='/home'>首页</Link>
             <Button className={styles.personalCenter}>个人中心</Button>
-            <span className={styles.userName}>{userName ? userName : 'guest'}</span>
+            <span className={styles.nickname}>{nickname ? nickname : 'guest'}</span>
             <a className={styles.loignOut} onClick={this.loginOut}>退出</a>
           </div>
         </Header>
@@ -194,6 +194,10 @@ class HomePage extends Component {
                 <Route path='/home/contribute/audio' component={MyAudio}/>
               </Switch>
             </Content>
+            {/*/!*我的资料*!/*/}
+            {/*<switch>*/}
+            {/*<Route path='/home/datum' component={MyDatum}/>*/}
+            {/*</switch>*/}
             <div className={this.state.isTips ? 'tips' : 'hide'}>
               <h4>提示：</h4>
               <p>1.支持上传格式：epub、txt、pdf</p>

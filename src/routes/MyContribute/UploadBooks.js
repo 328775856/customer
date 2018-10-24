@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Pagination from '../common/pagination';
-import Table from '../common/table';
+import Pagination from '../../components/common/pagination';
+import Table from '../../components/common/table';
 import {Switch, Radio} from 'antd';
 
 class Mybooks extends Component {

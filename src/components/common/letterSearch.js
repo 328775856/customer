@@ -9,7 +9,7 @@ class letterSearch extends Component {
   // }
 
   handleChange = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   render() {

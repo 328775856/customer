@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Editor from '../common/editor';
+import Editor from '../../components/common/editor';
 import {Input, Button} from 'antd';
 import './index.less';
 

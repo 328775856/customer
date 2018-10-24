@@ -10,7 +10,7 @@ const Login = ({dispatch, login}) => {
     });
   }
   return (
-    <div className='login'>
+    <div className='login loginBg'>
       <ComLogin loginclick={loginclick}/>
     </div>
   );
