@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {Form, Input, Button} from 'antd';
+import {Form, Input} from 'antd';
 import Cropper from '../../components/common/cropper';
 import 'cropperjs/dist/cropper.css';
 import './index.less';
 
 const TextArea = Input.TextArea;
 const FormItem = Form.Item;
-const src = '/139.jpg';
+const src = '/yay.jpg';
 
 @Form.create()
 class Index extends Component {
@@ -40,7 +40,7 @@ class Index extends Component {
     if (typeof this.cropper.getCroppedCanvas() === 'undefined') {
       return;
     }
-    console.log(this.cropper.getCroppedCanvas().toDataURL())
+    console.log(this.cropper.getCroppedCanvas().toDataURL());
     this.setState({
       cropResult: this.cropper.getCroppedCanvas().toDataURL()
     });
@@ -73,7 +73,7 @@ class Index extends Component {
       <div className='myDatum'>
         <div className='flex-r'>
           <section>
-            <img src="http://pic36.photophoto.cn/20150728/0022005597823716_b.jpg" alt=""/>
+            <img src="http://pic36.photophoto.cn/20150728/0022005597823716_b.jpg" alt="" />
             <div>
               <a onClick={this.isModalVisible}>更换头像</a>
             </div>
@@ -83,27 +83,27 @@ class Index extends Component {
               <FormItem label='昵称' {...formItemLayout}>
                 {getFieldDecorator('nickName', {
                   rules: [{required: true, message: 'asd'}]
-                })(<Input/>)}
+                })(<Input />)}
               </FormItem>
 
               <FormItem label='藏书馆号' {...formItemLayout}>
-                <Input value='132654' readOnly/>
+                <Input value='132654' readOnly />
               </FormItem>
 
               <FormItem label='手机号' {...formItemLayout}>
-                <Input value='13639308888' readOnly/>
+                <Input value='13639308888' readOnly />
               </FormItem>
 
               <FormItem label='性别' {...formItemLayout}>
                 {getFieldDecorator('gender',
                   {rules: [{required: true}]})(
-                  <Input/>
+                  <Input />
                 )}
               </FormItem>
 
               <FormItem label='个性签名'{...formItemLayout}>
                 {getFieldDecorator('person')(
-                  <TextArea/>
+                  <TextArea />
                 )}
               </FormItem>
             </Form>
@@ -118,11 +118,15 @@ class Index extends Component {
             <div className='cropperContent'>
               <Cropper
                 className='cropper'
+                viewMode='2'
                 aspectRatio={1}
+                autoCropArea={0.4}
+                minCropBoxWidth={200}
+                minCropBoxHeight={200}
                 preview=".img-preview"
-                guides={false}
-                autoCropArea={0.5}
-                // zoomOnWheel={true}
+                guides
+                dragMode='none'
+                zoomOnWheel
                 cropBoxResizable={false}
                 src={this.state.src}
                 ref={cropper => {
@@ -132,13 +136,13 @@ class Index extends Component {
             </div>
             <div className='previewer'>
               <p>头像预览</p>
-              <div className="img-preview big"/>
-              <div className="img-preview small"/>
+              <div className="img-preview big" />
+              <div className="img-preview small" />
               <div>
-                <a href="" className="ui-upload">
-                  <input type="file" onChange={this.onChange}  />upload
+                <a className='confirm'>确认</a>
+                <a className="ui-upload">
+                  <input type="file" onChange={this.onChange} />重新上传
                 </a>
-                <Button>2</Button>
               </div>
             </div>
           </div>

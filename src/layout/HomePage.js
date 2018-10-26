@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
-import {Layout, Menu, Breadcrumb, Button} from 'antd';
+import {Layout, Menu, Breadcrumb} from 'antd';
 import {Route, Link, routerRedux, Switch} from 'dva/router';
 //css module
 import styles from './index.less';
@@ -39,7 +39,6 @@ const {SubMenu} = Menu;
 const {Sider, Header, Content} = Layout;
 
 class HomePage extends Component {
-  rootSubmenuKeys = ['libraries', 'contribute'];
 
   constructor(props) {
     super(props);
@@ -57,6 +56,14 @@ class HomePage extends Component {
     this.setState({
       openKeys: latestOpenKey ? [latestOpenKey] : []
     });
+  };
+  handleClick = ({item, key, keyPath}) => {
+    const rootKeys = ['borrow', 'note', 'record', 'datum'];
+    if (rootKeys.indexOf(key) !== -1) {
+      this.setState({
+        openKeys: ['']
+      });
+    }
   };
 
   componentDidMount() {
@@ -111,8 +118,8 @@ class HomePage extends Component {
           </div>
           <div className={styles.userInfo}>
             <Link to='/home'>首页</Link>
-            <Button className={styles.personalCenter}>个人中心</Button>
-            <span className={styles.nickname}>{nickname ? nickname : 'guest'}</span>
+            <Link className={styles.personalCenter}  to='/home/datum'>个人中心</Link>
+            <span className={styles.nickname}>Hi! {nickname ? nickname : 'guest'}</span>
             <a className={styles.loignOut} onClick={this.loginOut}>退出</a>
           </div>
         </Header>
@@ -125,6 +132,7 @@ class HomePage extends Component {
               defaultSelectedKeys={this.state.selectKey}
               style={{height: '100%', borderRight: 0, color: 'RGBA(31, 207, 185, 1)'}}
               onOpenChange={this.onOpenChange}
+              onClick={this.handleClick}
             >
               <UserInfo></UserInfo>
               <SubMenu key="libraries" title={<span><i className='iconfont icon-ic_wodeYunshuguan_de'></i>我的云书馆</span>}>
