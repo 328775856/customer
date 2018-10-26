@@ -39,15 +39,25 @@ const {SubMenu} = Menu;
 const {Sider, Header, Content} = Layout;
 
 class HomePage extends Component {
+  rootSubmenuKeys = ['libraries', 'contribute'];
+
   constructor(props) {
     super(props);
     this.state = {
       url: '',
-      openKey: this.getdefaultOpenKeys(),
+      openKeys: this.getdefaultOpenKeys() ? this.getdefaultOpenKeys() : ['libraries'],
       selectKey: this.getdefaultSelectedKeys(),
+      defaultOpenKeys: this.getdefaultOpenKeys(),
       isTips: false
     };
   }
+
+  onOpenChange = (openKeys) => {
+    const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+    this.setState({
+      openKeys: latestOpenKey ? [latestOpenKey] : []
+    });
+  };
 
   componentDidMount() {
     // const {dispatch} = this.props;
@@ -90,7 +100,7 @@ class HomePage extends Component {
 
   render() {
     // console.log(this.state.isTips,'1')
-    const {userInfo:{nickname}} = this.props.login || '';
+    const {nickname} = this.props.login || '';
     return (
       <Layout className={styles.homePage}>
         <Header className={styles.header}>
@@ -110,9 +120,11 @@ class HomePage extends Component {
           <Sider className='siderBar' width={200} style={{background: '#fff'}}>
             <Menu
               mode="inline"
-              defaultOpenKeys={this.state.openKey}
+              defaultOpenKeys={this.state.defaultOpenKeys}
+              openKeys={this.state.openKeys}
               defaultSelectedKeys={this.state.selectKey}
               style={{height: '100%', borderRight: 0, color: 'RGBA(31, 207, 185, 1)'}}
+              onOpenChange={this.onOpenChange}
             >
               <UserInfo></UserInfo>
               <SubMenu key="libraries" title={<span><i className='iconfont icon-ic_wodeYunshuguan_de'></i>我的云书馆</span>}>

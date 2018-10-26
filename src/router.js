@@ -2,7 +2,7 @@ import React from 'react';
 import {Router, Route, Switch} from 'dva/router';
 import LoginPage from './layout/LoginPage';
 import HomePage from './layout/HomePage';
-import ResetPwd from './components/Login/resetPwd';
+import ResetPwd from './components/Login/reset';
 import Register from './components/Login/register';
 
 function RouterConfig({history}) {

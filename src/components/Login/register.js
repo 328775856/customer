@@ -2,24 +2,45 @@ import React from 'react';
 import {Form, Input, Button} from 'antd';
 import {Link} from 'react-router-dom';
 import styles from './login.less';
+import {connect} from 'dva';
 
 const FormItem = Form.Item;
 
+@connect(({login}) => ({login}))
 class NormalLoginForm extends React.Component {
+  UNSAFE_componentWillReceiveProps(nextP, nextS) {
+    console.log(nextP.login)
+  }
+
   handleSubmit = e => {
     e.preventDefault();
-    const {loginclick} = this.props;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        loginclick(values);
+        this.register(values);
       }
+    });
+  };
+  getCaptcha = () => {
+    this.props.form.validateFields(['mobile'], (err, values) => {
+      if (!err) {
+        this.props.dispatch({
+          type: 'login/getCaptcha',
+          payload: values
+        });
+      }
+    });
+  };
+  register = (val) => {
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'login/register',
+      payload: {...val}
     });
   };
 
   render() {
     const {getFieldDecorator} = this.props.form;
     return (
-
       <div className='loginBg'>
         <div className={styles.loginBox}>
           <div className={styles.logo}>
@@ -29,19 +50,19 @@ class NormalLoginForm extends React.Component {
             <div className={styles.loginInput}>
               <p style={{textAlign: 'center'}}>注册</p>
               <FormItem>
-                {getFieldDecorator('userCode', {
+                {getFieldDecorator('mobile', {
                   rules: [{required: true, message: '请输入您的账号'}]
                 })(<Input addonBefore={<p>手机号</p>} placeholder="请输入您的账号"/>)}
               </FormItem>
               <FormItem style={{float: 'left'}}>
-                {getFieldDecorator('chaptcha', {
+                {getFieldDecorator('verifyCode', {
                   rules: [{required: true, message: '请输入验证码'}]
                 })(<Input addonBefore={<p>验证码</p>} placeholder="请输入验证码"/>)}
               </FormItem>
-              <Button id='btn' style={styles.btn}>获取验证码</Button>
+              <Button id='btn' style={styles.btn} onClick={this.getCaptcha}>获取验证码</Button>
               <FormItem>
                 {getFieldDecorator(
-                  'newPwd', {
+                  'password', {
                     rules: [{
                       required: true,
                       message: '请输入密码'
@@ -63,6 +84,7 @@ class NormalLoginForm extends React.Component {
     );
   }
 }
+
 const login = Form.create()(NormalLoginForm);
 login.propTypes = {};
 

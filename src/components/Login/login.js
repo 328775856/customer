@@ -27,12 +27,12 @@ class NormalLoginForm extends React.Component {
           <Form onSubmit={this.handleSubmit}>
             <div className={styles.loginInput}>
               <FormItem>
-                {getFieldDecorator('userCode', {
+                {getFieldDecorator('username', {
                   rules: [{required: true, message: '请输入您的账号'}]
                 })(<Input addonBefore={<p>账&nbsp;&nbsp;&nbsp;&nbsp;户</p>} placeholder="请输入您的账号"/>)}
               </FormItem>
               <FormItem>
-                {getFieldDecorator('passwd', {
+                {getFieldDecorator('password', {
                   rules: [{required: true, message: '请输入您的密码'}]
                 })(<Input type='password' addonBefore={<p>密&nbsp;&nbsp;&nbsp;&nbsp;码</p>} placeholder="请输入您的密码"/>)}
               </FormItem>

@@ -22,7 +22,7 @@ class NormalLoginForm extends React.Component {
       <div className='loginBg'>
         <div className={styles.loginBox}>
           <div className={styles.logo}>
-            <img src={require('../../assets/images/login_logo.png')} alt="" />
+            <img src={require('../../assets/images/login_logo.png')} alt=""/>
           </div>
           <Form onSubmit={this.handleSubmit}>
             <div className={styles.loginInput}>
@@ -30,12 +30,12 @@ class NormalLoginForm extends React.Component {
               <FormItem>
                 {getFieldDecorator('userCode', {
                   rules: [{required: true, message: '请输入您的账号'}]
-                })(<Input addonBefore={<p>手机号</p>} placeholder="请输入您的账号" />)}
+                })(<Input addonBefore={<p>手机号</p>} placeholder="请输入您的账号"/>)}
               </FormItem>
               <FormItem style={{float: 'left'}}>
-                {getFieldDecorator('chaptcha', {
+                {getFieldDecorator('verifyCode', {
                   rules: [{required: true, message: '请输入验证码'}]
-                })(<Input addonBefore={<p>验证码</p>} placeholder="请输入验证码" />)}
+                })(<Input addonBefore={<p>验证码</p>} placeholder="请输入验证码"/>)}
               </FormItem>
               <Button id='btn' style={styles.btn}>获取验证码</Button>
               <FormItem>
@@ -46,7 +46,7 @@ class NormalLoginForm extends React.Component {
                       message: '请输入新密码'
                     }]
                   }
-                )(<Input addonBefore={<p>新密码</p>} placeholder='请输入您的新密码' />)}
+                )(<Input addonBefore={<p>新密码</p>} placeholder='请输入您的新密码'/>)}
               </FormItem>
             </div>
             <div className={styles.loginButton}>
@@ -62,6 +62,7 @@ class NormalLoginForm extends React.Component {
     );
   }
 }
+
 const login = Form.create()(NormalLoginForm);
 login.propTypes = {};
 
