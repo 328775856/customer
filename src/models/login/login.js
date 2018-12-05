@@ -75,6 +75,10 @@ export default {
     'status'(state, {payload}) {
       state = payload;
       return {...state};
+    },
+    'changeAvatar'(state, {payload}) {
+      state.photo = payload;
+      return {...state};
     }
   }
   // subscriptions: {

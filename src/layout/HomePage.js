@@ -18,6 +18,8 @@ import MygroupingIndex from '../routes/MyGrouping';
 import MyBorrow from '../routes/MyBorrow';
 //我的笔记
 import MyNote from '../routes/MyNote';
+//笔记详情
+import noteView from '../routes/MyNote/noteView';
 //我的档案
 import MyRecord from '../routes/MyRecord';
 //我的资料
@@ -37,6 +39,8 @@ import {BreadcrumbJosn, subMenuDefalutJson, keyDefalutJson} from './map';
 
 const {SubMenu} = Menu;
 const {Sider, Header, Content} = Layout;
+//不在content中的组件路由数组
+const noContent = ['/home/datum', '/home/contribute', '/home/noteView'];
 
 class HomePage extends Component {
 
@@ -71,6 +75,13 @@ class HomePage extends Component {
   }
 
   UNSAFE_componentWillReceiveProps() {
+    let url = this.props.history.location.pathname;
+    if (noContent.indexOf(url) !== -1) {
+      this.setState({hasContent: false});
+    } else {
+      this.setState({hasContent: true});
+    }
+
     if (this.props.history.location.pathname === '/home/libraries/books/uploadBooks') {
       document.getElementsByClassName('content')[0].className = 'content contribute ant-layout-content';
     } else {
@@ -82,7 +93,10 @@ class HomePage extends Component {
       this.setState({isTips: false});
     }
     this.setState({
-      url: BreadcrumbJosn[this.props.history.location.pathname]
+      url: BreadcrumbJosn[this.props.history.location.pathname],
+      openKeys: this.getdefaultOpenKeys() ? this.getdefaultOpenKeys() : ['libraries'],
+      selectKey: this.getdefaultSelectedKeys(),
+      defaultOpenKeys: this.getdefaultOpenKeys()
     });
   }
 
@@ -105,9 +119,13 @@ class HomePage extends Component {
   getdefaultOpenKeys = () => [keyDefalutJson[`${this.props.history.location.pathname}`]];
   getdefaultSelectedKeys = () => [subMenuDefalutJson[`${this.props.history.location.pathname}`]];
 
+  changeTitle = () => {
+    document.title = BreadcrumbJosn[this.props.location.pathname];
+  };
+
   render() {
     // console.log(this.state.isTips,'1')
-    const {nickname} = this.props.login || '';
+    const {nickname, photo} = this.props.login || '';
     return (
       <Layout className={styles.homePage}>
         <Header className={styles.header}>
@@ -118,7 +136,7 @@ class HomePage extends Component {
           </div>
           <div className={styles.userInfo}>
             <Link to='/home'>首页</Link>
-            <Link className={styles.personalCenter}  to='/home/datum'>个人中心</Link>
+            <Link className={styles.personalCenter} to='/home/datum'>个人中心</Link>
             <span className={styles.nickname}>Hi! {nickname ? nickname : 'guest'}</span>
             <a className={styles.loignOut} onClick={this.loginOut}>退出</a>
           </div>
@@ -130,11 +148,12 @@ class HomePage extends Component {
               defaultOpenKeys={this.state.defaultOpenKeys}
               openKeys={this.state.openKeys}
               defaultSelectedKeys={this.state.selectKey}
+              selectedKeys={this.state.selectKey}
               style={{height: '100%', borderRight: 0, color: 'RGBA(31, 207, 185, 1)'}}
               onOpenChange={this.onOpenChange}
               onClick={this.handleClick}
             >
-              <UserInfo></UserInfo>
+              <UserInfo nickname={nickname} avatar={photo}></UserInfo>
               <SubMenu key="libraries" title={<span><i className='iconfont icon-ic_wodeYunshuguan_de'></i>我的云书馆</span>}>
                 <Menu.Item key="myBooks">
                   <Link to="/home/libraries/books">我的图书</Link>
@@ -187,37 +206,43 @@ class HomePage extends Component {
             <Breadcrumb style={{margin: '16px 0'}}>
               <Breadcrumb.Item>{this.state.url}</Breadcrumb.Item>
             </Breadcrumb>
-            <Content
-              className={this.state.isTips ? '' : 'content'}
-              style={{background: '#fff', padding: 40, paddingBottom: 0, margin: 0, minHeight: 280}}
-            >
-              <Switch>
-                {/*主页*/}
-                <Route path='/home' exact component={Home}/>
-                {/*我的云书馆*/}
-                <Route path='/home/libraries/books' exact component={MybooksIndex}/>
-                <Route path='/home/libraries/books/uploadBooks' component={UploadBooks}/>
-                <Route path='/home/libraries/grouping' component={MygroupingIndex}/>
-                {/*我的借阅*/}
-                <Route path='/home/borrow' component={MyBorrow}/>
-                {/*我的笔记*/}
-                <Route path='/home/note' component={MyNote}/>
-                {/*我的档案*/}
-                <Route path='/home/record' component={MyRecord}/>
-                {/*我的资料*/}
-                <Route path='/home/datum' component={MyDatum}/>
-                {/*我的投稿*/}
-                <Route path='/home/contribute' exact component={MyContribute}/>
-                <Route path='/home/contribute/createNew' exact component={CreateNew}/>
-                <Route path='/home/contribute/income' component={MyIncome}/>
-                <Route path='/home/contribute/photos' component={MyPhotos}/>
-                <Route path='/home/contribute/audio' component={MyAudio}/>
-              </Switch>
-            </Content>
-            {/*/!*我的资料*!/*/}
-            {/*<switch>*/}
-            {/*<Route path='/home/datum' component={MyDatum}/>*/}
-            {/*</switch>*/}
+            <div>{
+              this.state.hasContent ?
+                <Content
+                  className={this.state.isTips ? '' : 'content'}
+                  style={{background: '#fff', padding: 40, paddingBottom: 0, margin: 0, minHeight: 280}}
+                >
+                  <Switch onClick={this.changeTitle()}>
+                    {/*主页*/}
+                    <Route path='/home' exact component={Home}/>
+                    {/*我的云书馆*/}
+                    <Route path='/home/libraries/books' exact component={MybooksIndex}/>
+                    <Route path='/home/libraries/books/uploadBooks' component={UploadBooks}/>
+                    <Route path='/home/libraries/grouping' component={MygroupingIndex}/>
+                    {/*我的借阅*/}
+                    <Route path='/home/borrow' component={MyBorrow}/>
+                    {/*我的笔记*/}
+                    <Route path='/home/note' component={MyNote}/>
+                    {/*我的档案*/}
+                    <Route path='/home/record' component={MyRecord}/>
+                    {/*我的投稿*/}
+                    {/*<Route path='/home/contribute' exact component={MyContribute}/>*/}
+                    <Route path='/home/contribute/createNew' exact component={CreateNew}/>
+                    <Route path='/home/contribute/income' component={MyIncome}/>
+                    <Route path='/home/contribute/photos' component={MyPhotos}/>
+                    <Route path='/home/contribute/audio' component={MyAudio}/>
+                  </Switch>
+                </Content> :
+                <Switch>
+                  {/*note详情*/}
+                  <Route path='/home/noteView' component={noteView}/>
+                  {/*我的资料*/}
+                  <Route path='/home/datum' component={MyDatum}/>
+                  {/*我的投稿*/}
+                  <Route path='/home/contribute' exact component={MyContribute}/>
+                </Switch>
+            }
+            </div>
             <div className={this.state.isTips ? 'tips' : 'hide'}>
               <h4>提示：</h4>
               <p>1.支持上传格式：epub、txt、pdf</p>

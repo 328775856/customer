@@ -12,10 +12,11 @@ class userInfo extends Component {
       }}
       >
         <img
-          style={{width: 64, height: 64, borderRadius: '50%'}} src={require('../../assets/images/login_logo.png')}
-          alt=""
+          style={{width: 64, height: 64, borderRadius: '50%'}}
+          src={this.props.avatar ? this.props.avatar : require('../../assets/avatar.jpg')}
+          alt="avatar"
         />
-        <span style={{color: '#fff', fontSize: 18}}>dsfsdf</span>
+        <span style={{color: '#fff', fontSize: 18}}>{this.props.nickname ? this.props.nickname : 'guest'}</span>
       </div>
     );
   }

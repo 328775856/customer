@@ -9,6 +9,7 @@ const BreadcrumbJosn = {
   '/home/borrow': '我的阅历',
   //我的笔记
   '/home/note': '我的笔记',
+  '/home/noteView': '笔记详情',
   //我的档案
   '/home/record': '我的档案',
   //我的资料
@@ -41,10 +42,14 @@ const subMenuDefalutJson = {
   '/home/contribute/audio': 'myAudio',
 };
 const keyDefalutJson = {
+  //首页
+  '/home': '',
   //我的云书馆
   '/home/libraries/books': 'libraries',
   '/home/libraries/grouping': 'libraries',
   '/home/libraries/books/uploadBooks': 'libraries',
+  //我的资料
+  '/home/datum': 'datum',
   //我的投稿
   '/home/contribute': 'contribute',
   '/home/contribute/createNew': 'contribute',

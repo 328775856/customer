@@ -565,72 +565,6 @@
         }
       }
     }
-    //myDatum
-    .myDatum {
-      .flex-r {
-        section {
-          &:first-child {
-            width: 360px;
-            height: 245px;
-            margin-right: 40px;
-            background: rgba(255, 255, 255, 1);
-            border: 1px solid #ccc;
-            box-shadow: 0px 0px 0px rgba(108, 119, 128, 0.87);
-            border-radius: 5px;
-            text-align: center;
-            img {
-              width: 120px;
-              height: 120px;
-              margin: 40px 0 24px 0;
-              border-radius: 50%;
-              display: inline-block;
-            }
-            a {
-              font-size: 20px;
-              font-family: MicrosoftYaHei;
-              font-weight: 400;
-              text-decoration: underline;
-              color: rgba(108, 119, 128, 1);
-            }
-          }
-          &:last-child {
-            width: 1170px;
-            height: 610px;
-            padding: 40px;
-            border: 1px solid #ccc;
-            box-shadow: 0px 0px 0px rgba(108, 119, 128, 0.87);
-            border-radius: 5px;
-          }
-        }
-      }
-    }
-    //contribute
-    .contribute {
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      .create{
-        width:496px;
-        height:431px;
-        margin: 0 20px 40px 20px;
-        background:rgba(31,207,185,0.1);
-        box-shadow:0px 0px 0px rgba(161,167,179,0.87);
-        border: 1px #ccc solid;
-        border-radius:5px;
-        >i:before{
-          font-size: 50px;
-          color: #1FCFB9;
-        }
-        >p{
-          font-size:20px;
-          font-family:MicrosoftYaHei;
-          font-weight:400;
-          color:rgba(91,98,107,1);
-        }
-      }
-      .cell{
-        margin: 0 20px 40px 20px
-      }
-    }
     //uploadBooks
     .uploadBooks {
       text-align: center;
@@ -674,6 +608,90 @@
     .ant-radio-button-wrapper-checked {
       border-color: rgba(31, 207, 185, 1);
       opacity: 1;
+    }
+  }
+
+  //myDatum
+  .myDatum {
+    .flex-r {
+      section {
+        &:first-child {
+          width: 360px;
+          height: 245px;
+          margin-right: 40px;
+          background: rgba(255, 255, 255, 1);
+          border: 1px solid #ccc;
+          box-shadow: 0px 0px 0px rgba(108, 119, 128, 0.87);
+          border-radius: 5px;
+          text-align: center;
+          img {
+            width: 120px;
+            height: 120px;
+            margin: 40px 0 24px 0;
+            border-radius: 50%;
+            display: inline-block;
+          }
+          a {
+            font-size: 20px;
+            font-family: MicrosoftYaHei;
+            font-weight: 400;
+            text-decoration: underline;
+            color: rgba(108, 119, 128, 1);
+          }
+        }
+        &:last-child {
+          width: 1170px;
+          height: 610px;
+          padding: 40px;
+          background: white;
+          border: 1px solid #ccc;
+          box-shadow: 0px 0px 0px rgba(108, 119, 128, 0.87);
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+  //contribute
+  .contribute {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    .create{
+      width:496px;
+      height:431px;
+      margin: 0 20px 40px 20px;
+      background:rgba(31,207,185,0.1);
+      box-shadow:0px 0px 0px rgba(161,167,179,0.87);
+      border: 1px #ccc solid;
+      border-radius:5px;
+      >i:before{
+        font-size: 50px;
+        color: #1FCFB9;
+      }
+      >p{
+        font-size:20px;
+        font-family:MicrosoftYaHei;
+        font-weight:400;
+        color:rgba(91,98,107,1);
+      }
+    }
+    .cell{
+      margin: 0 20px 40px 20px
+    }
+  }
+  //noteView
+  .noteView{
+    width: 100%;
+    display:flex;
+    flex-flow: row wrap;
+    div{
+      width: 34%;
+      height: 100px;
+      margin: 0 10% 3% 0;
+      display: inline-block;
+      background: white;
+      &:nth-of-type(2){
+        height: 500px;
+      }
     }
   }
   .tips {
