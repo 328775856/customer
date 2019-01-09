@@ -1,5 +1,7 @@
 import fetch from 'dva/fetch';
-import {Message} from 'antd';
+import {routerRedux} from 'dva/router';
+import {message} from 'antd';
+import store from '../index';
 
 function parseJSON(response) {
   return response.json();
@@ -28,9 +30,16 @@ export default function request(url, options) {
     .then(parseJSON)
     .then(data => {
       if (data.status !== 200) {
-        Message.warn(data.status + data.message);
+        // message.warn(data.status + data.message);
+        // throw Error(data.status);
       }
       return data;
     })
-    .catch(err => ({err}));
+    .catch(err => {
+      const {dispatch} = store;
+      // if (err || err.response.status == 500) {
+      //   dispatch(routerRedux.push('/'));
+      //   return;
+      // }
+    });
 }

@@ -1,86 +1,198 @@
 import React, {Component} from 'react';
 import Pagination from '../../components/common/pagination';
-import Table from '../../components/common/table';
-import {Switch, Radio} from 'antd';
+import CoverCell from '../../components/common/coverCell';
+import './index.less';
+import {Radio, message, Upload, Icon} from 'antd';
+import {connect} from "dva";
+import {defaultPage} from "../../utils/utils";
 
 class Mybooks extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      maxFileSize: this.props.maxFileSize ? this.props.maxFileSize : 2,
       dataSource: [],
-      columnsData: [{
-        title: '书名',
-        dataIndex: 'bookName',
-        key: 'bookName',
-        render(text, record, index) {
-          return (
-            <div>{record.size}</div>
-          );
-        }
-      }, {
-        title: '状态',
-        dataIndex: 'status',
-        key: 'status',
-        render() {
-          return (
-            <div>
-              <i className='iconfont icon-ic_chuan'></i>
-            </div>
-          );
-        }
-      }, {
-        title: '进度',
-        dataIndex: 'progress',
-        key: 'progress'
-      }, {
-        title: '大小',
-        dataIndex: 'size',
-        key: 'sieze'
-      }, {
-        title: '操作',
-        dataIndex: 'options',
-        key: 'options',
-        render() {
-          return (
-            <div className='options'>
-              <span style={{display: 'inline-block', verticalAlign: 'middle', paddingRight: '40px'}}>
-                <Switch style={{marginRight: '20px'}}/>公开/隐藏
-              </span>
-              <i style={{paddingRight: '40px'}} className='iconfont icon-ic_fengzu_default'>分组到</i>
-              <i style={{paddingRight: '40px'}} className='iconfont icon-ic_shanchu_default'>删除</i>
-            </div>
-          );
-        }
-      }],
-      checked: true
+      arr: [],
+      previewVisible: false,
+      previewImage: '',
+      fileList: [],
+      list: [1, 2, 3],
+      page: defaultPage(),
+      currentPage: 1,
+      checked: false
     };
   }
 
-  handleSizeChange = (e) => {
-    this.setState({checked: !e.target.checked});
+  changeCheck = () => {
+    if (this.state.arr.length > 0) {
+      this.setState({arr: []});
+    } else {
+      let arr = [];
+      for (let i of this.state.dataSource) {
+        arr.push(i.mediaImageId);
+      }
+      this.setState({arr: arr});
+    }
+  };
+  beforeUpload = (file) => {
+    const maxFileSize = this.state.maxFileSize;
+    if (maxFileSize) {
+      const isLtMax = file.size / 1024 / 1024 < maxFileSize;
+      if (!isLtMax) {
+        message.error(`文件大小超过${maxFileSize}M限制`);
+        return false;
+      }
+      return isLtMax;
+    }
+  };
+
+  refresh = () => {
+    const {dispatch} = this.props;
+    const {page, value} = this.state;
+    dispatch({
+      type: 'myphotos/getImagePage',
+      payload: {
+        data: value,
+        page: page
+      }
+    });
+  };
+  sendImagePath = (filePath, fileName, fileSize) => {
+    const {dispatch} = this.props;
+    const cb = this.callback;
+    dispatch({
+      type: 'myphotos/addImage',
+      payload: {
+        fileName: fileName,
+        filePath: filePath,
+        fileSize: fileSize
+      },
+      callback: cb
+    });
+  };
+  callback = (r) => {
+    if (r.status == 200) {
+      this.refresh();
+    }
+  };
+  deleteImage = (val) => {
+    const {dispatch} = this.props;
+    const cb = this.callback;
+    dispatch({
+      type: 'myphotos/deleteImage',
+      payload: {
+        mediaImageId: val
+      },
+      callback: cb
+    });
+  };
+
+  componentDidMount() {
+    this.refresh();
+  }
+
+  UNSAFE_componentWillReceiveProps(r) {
+    this.setState({
+      dataSource: r.myphotos.rows,
+      pagination: {
+        pages: r.myphotos.pages,
+        currentPage: this.state.currentPage,
+        pageSize: r.myphotos.pageSize
+      }
+    });
+  }
+
+  changePage = (val) => {
+    const {formValues} = this.state;
+    const page = {
+      pageSize: 10,
+      pageNo: val
+    };
+    this.setState({
+      page,
+      currentPage: val,
+      arr: []
+    }, function () {
+      this.refresh(formValues, page);
+    });
+  };
+  change = (val) => {
+    if (this.state.arr.indexOf(val) !== -1) {
+      this.state.arr.splice(this.state.arr.indexOf(val), 1);
+      this.setState({arr: this.state.arr});
+    } else {
+      this.setState({arr: this.state.arr.concat(val)});
+    }
   };
 
   render() {
+    const props = {
+      name: 'file',
+      action: process.env.NODE_ENV === 'production' ? '/api/gb_customer/GbCustomer/file/uploadImage' : '/file/uploadImage',
+      headers: {
+        authorization: sessionStorage.getItem('auth')
+      },
+      onChange: (info) => {
+        if (info.file.status !== 'uploading') {
+        }
+        if (info.file.status === 'done') {
+          message.success(`${info.file.name}上传成功！`);
+          this.sendImagePath(info.file.response.data.fileName, info.file.name, Math.round(info.file.size / 1024 * 10) / 10);
+          this.setState({
+            fileList: info.fileList
+          });
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name}上传失败！`);
+        }
+      }
+    };
+    const propsItem = {
+      page: this.state.pagination,
+      currentPage: this.state.currentPage,
+      changePage: this.changePage
+    };
     return (
       <div className='uploadBooks'>
         <section className='flex-r'>
           <div className='btn'>
-            <Radio.Group onChange={this.handleSizeChange}>
+            <Radio.Group>
               <Radio.Button
-                checked={this.state.checked}
-                value='addLocal'
-              >添加本地文件</Radio.Button>
-              <Radio.Button value='addStart'>全部开始</Radio.Button>
+                onClick={this.changeCheck}
+                value='addAll'
+              >全选</Radio.Button>
+              <Radio.Button value='delete'>删除</Radio.Button>
             </Radio.Group>
           </div>
-          <Pagination></Pagination>
+          <div className='pagination-wrapper'>
+            <Pagination {...propsItem}></Pagination>
+          </div>
         </section>
-        <section className='flex-r'>
-          <Table dataSource={this.state.dataSource} columnsData={this.state.columnsData} message='请上传文件！'></Table>
+        <section className='flex-r' style={{justifyContent: 'flex-start', minWidth: 1528}}>
+          <Upload
+            {...props}
+            beforeUpload={this.beforeUpload}
+            showUploadList={false}
+          >
+            <div className='uploadImgBtn'>
+              <div><span>+</span></div>
+            </div>
+          </Upload>
+          {this.state.dataSource && this.state.dataSource.map(el =>
+            <CoverCell
+              change={this.change}
+              checked={this.state.checked}
+              arr={this.state.arr} data={el}
+              delete={this.deleteImage}
+              src={el.imagePath} key={el.mediaImageId}
+              keys={el.mediaImageId}
+            ></CoverCell>
+          )}
         </section>
       </div>
     );
   }
 }
 
-export default Mybooks;
+export default connect(({myphotos}) => ({
+  myphotos
+}))(Mybooks);

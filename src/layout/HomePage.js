@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'dva';
 import {Layout, Menu, Breadcrumb} from 'antd';
 import {Route, Link, routerRedux, Switch} from 'dva/router';
+import qs from 'qs';
 //css module
 import styles from './index.less';
 
@@ -14,6 +15,7 @@ import MybooksIndex from '../routes/Mybooks';
 import UploadBooks from '../routes/Mybooks/UploadBooks';
 //我的书馆>我的分组
 import MygroupingIndex from '../routes/MyGrouping';
+import MygroupingDetails from '../routes/MyGrouping/groupDetails';
 //我的借阅
 import MyBorrow from '../routes/MyBorrow';
 //我的笔记
@@ -22,6 +24,8 @@ import MyNote from '../routes/MyNote';
 import noteView from '../routes/MyNote/noteView';
 //我的档案
 import MyRecord from '../routes/MyRecord';
+//档案详情
+import recordView from '../routes/MyRecord/recordView';
 //我的资料
 import MyDatum from '../routes/MyDatum';
 //我的投稿>我的投稿
@@ -40,7 +44,7 @@ import {BreadcrumbJosn, subMenuDefalutJson, keyDefalutJson} from './map';
 const {SubMenu} = Menu;
 const {Sider, Header, Content} = Layout;
 //不在content中的组件路由数组
-const noContent = ['/home/datum', '/home/contribute', '/home/noteView'];
+const noContent = ['/home/datum', '/home/contribute'];
 
 class HomePage extends Component {
 
@@ -81,19 +85,19 @@ class HomePage extends Component {
     } else {
       this.setState({hasContent: true});
     }
-
-    if (this.props.history.location.pathname === '/home/libraries/books/uploadBooks') {
-      document.getElementsByClassName('content')[0].className = 'content contribute ant-layout-content';
-    } else {
-
-    }
     if (this.props.history.location.pathname === '/home/libraries/books/uploadBooks') {
       this.setState({isTips: true});
     } else {
       this.setState({isTips: false});
     }
+    // if (this.props.history.location.pathname === '/home/libraries/books/uploadBooks') {
+    //   console.log(document.getElementsByClassName('content'));
+    //   // document.getElementsByClassName('content')[0].className = 'content contribute ant-layout-content';
+    // } else {
+    //
+    // }
     this.setState({
-      url: BreadcrumbJosn[this.props.history.location.pathname],
+      url: BreadcrumbJosn[this.props.history.location.pathname.slice(0, this.props.history.location.pathname.indexOf(this.props.history.location.pathname.match(/\d/)) - 1)],
       openKeys: this.getdefaultOpenKeys() ? this.getdefaultOpenKeys() : ['libraries'],
       selectKey: this.getdefaultSelectedKeys(),
       defaultOpenKeys: this.getdefaultOpenKeys()
@@ -101,14 +105,17 @@ class HomePage extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    // console.log(this.props.history.location.pathname)
     const {dispatch} = this.props;
+    if (qs.parse(this.props.history.location.search.slice(this.props.history.location.search.indexOf('?') + 1)).token) {
+      sessionStorage.setItem('auth', qs.parse(this.props.history.location.search.slice(this.props.history.location.search.indexOf('?') + 1)).token);
+    }
     if (!sessionStorage.getItem('auth')) {
       dispatch(routerRedux.push('/'));
     } else {
       dispatch({
         type: 'login/getUserInfo'
       });
+      // debugger
     }
   }
 
@@ -120,7 +127,16 @@ class HomePage extends Component {
   getdefaultSelectedKeys = () => [subMenuDefalutJson[`${this.props.history.location.pathname}`]];
 
   changeTitle = () => {
-    document.title = BreadcrumbJosn[this.props.location.pathname];
+    if (this.props.history.location.pathname.match(/\d/)) {
+      for (let i in BreadcrumbJosn) {
+        if (i == this.props.history.location.pathname.slice(0, this.props.history.location.pathname.indexOf(this.props.history.location.pathname.match(/\d/)) - 1)) {
+          document.title = BreadcrumbJosn[i];
+          return;
+        }
+      }
+    } else {
+      document.title = BreadcrumbJosn[this.props.history.location.pathname];
+    }
   };
 
   render() {
@@ -214,32 +230,36 @@ class HomePage extends Component {
                 >
                   <Switch onClick={this.changeTitle()}>
                     {/*主页*/}
-                    <Route path='/home' exact component={Home}/>
+                    <Route path='/home' exact component={Home} />
                     {/*我的云书馆*/}
-                    <Route path='/home/libraries/books' exact component={MybooksIndex}/>
-                    <Route path='/home/libraries/books/uploadBooks' component={UploadBooks}/>
-                    <Route path='/home/libraries/grouping' component={MygroupingIndex}/>
+                    <Route path='/home/libraries/books' exact component={MybooksIndex} />
+                    <Route path='/home/libraries/books/uploadBooks' component={UploadBooks} />
+                    <Route path='/home/libraries/grouping' component={MygroupingIndex} />
+                    <Route path='/home/libraries/groupingDetails' component={MygroupingDetails} />
                     {/*我的借阅*/}
-                    <Route path='/home/borrow' component={MyBorrow}/>
+                    <Route path='/home/borrow' component={MyBorrow} />
                     {/*我的笔记*/}
-                    <Route path='/home/note' component={MyNote}/>
+                    <Route path='/home/note' component={MyNote} />
+                    {/*note详情*/}
+                    <Route path='/home/noteView/:bookUserId' component={noteView} />
                     {/*我的档案*/}
-                    <Route path='/home/record' component={MyRecord}/>
+                    <Route path='/home/record' component={MyRecord} />
+                    {/*档案详情*/}
+                    <Route path='/home/recordView/:bookReaddocGroupId' component={recordView} />
                     {/*我的投稿*/}
                     {/*<Route path='/home/contribute' exact component={MyContribute}/>*/}
-                    <Route path='/home/contribute/createNew' exact component={CreateNew}/>
-                    <Route path='/home/contribute/income' component={MyIncome}/>
-                    <Route path='/home/contribute/photos' component={MyPhotos}/>
-                    <Route path='/home/contribute/audio' component={MyAudio}/>
+                    <Route path='/home/contribute/createNew' exact component={CreateNew} />
+                    <Route path='/home/contribute/income' component={MyIncome} />
+                    <Route path='/home/contribute/photos' component={MyPhotos} />
+                    <Route path='/home/contribute/audio' component={MyAudio} />
                   </Switch>
                 </Content> :
                 <Switch>
-                  {/*note详情*/}
-                  <Route path='/home/noteView' component={noteView}/>
+
                   {/*我的资料*/}
-                  <Route path='/home/datum' component={MyDatum}/>
+                  <Route path='/home/datum' component={MyDatum} />
                   {/*我的投稿*/}
-                  <Route path='/home/contribute' exact component={MyContribute}/>
+                  <Route path='/home/contribute' exact component={MyContribute} />
                 </Switch>
             }
             </div>

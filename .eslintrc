@@ -137,7 +137,7 @@
     //禁止使用new Object()
     'no-new-require': 2,
     //禁止使用new require
-    'no-new-wrappers': 1,
+    'no-new-wrappers': 0,
     //禁止使用new创建包装实例，new String new Boolean new Number
     'no-obj-calls': 2,
     //不能调用内置的全局对象，比如Math() JSON()
@@ -206,7 +206,7 @@
     'no-unused-expressions': 1,
     //禁止无用的表达式
     'no-unused-vars': [
-      0,
+      1,
       {
         vars: 'all',
         args: 'after-used'

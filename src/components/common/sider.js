@@ -1,16 +1,21 @@
 import React, {Component} from 'react';
 import {Radio} from 'antd';
 import {Link} from 'dva/router';
+import {connect} from 'dva';
 
 class sider extends Component {
   state = {
     loading: false,
-    checked: true
+    checked: true,
+    type:''
   };
   handleSizeChange = (e) => {
+    this.props.selectCb(e.target.value);
     this.setState({checked: !e.target.checked});
   };
   checked = (e) => {
+
+    console.log(e);
   };
 
   render() {
@@ -35,4 +40,7 @@ class sider extends Component {
   }
 }
 
-export default sider;
+
+export default connect(({mybooks}) => ({
+  mybooks
+}))(sider);

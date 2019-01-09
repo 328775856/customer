@@ -9,9 +9,13 @@ const FormItem = Form.Item;
 @connect(({login}) => ({login}))
 class NormalLoginForm extends React.Component {
   UNSAFE_componentWillReceiveProps(nextP, nextS) {
-    console.log(nextP.login)
+    // console.log(nextP.login);
   }
 
+  state = {
+    isGetCaptcha: false,
+    num: 60
+  };
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -22,10 +26,23 @@ class NormalLoginForm extends React.Component {
   };
   getCaptcha = () => {
     this.props.form.validateFields(['mobile'], (err, values) => {
+      const param = {
+        type: 1,
+        ...values
+      };
       if (!err) {
+        this.setState({isGetCaptcha: true});
+        let t = setInterval(() => {
+          if (this.state.num === 0) {
+            this.setState({isGetCaptcha: false, num: 60});
+            clearInterval(t);
+          } else {
+            this.setState({num: this.state.num - 1});
+          }
+        }, 1000);
         this.props.dispatch({
           type: 'login/getCaptcha',
-          payload: values
+          payload: param
         });
       }
     });
@@ -44,7 +61,7 @@ class NormalLoginForm extends React.Component {
       <div className='loginBg'>
         <div className={styles.loginBox}>
           <div className={styles.logo}>
-            <img src={require('../../assets/images/login_logo.png')} alt=""/>
+            <img src={require('../../assets/images/login_logo.png')} alt="" />
           </div>
           <Form onSubmit={this.handleSubmit}>
             <div className={styles.loginInput}>
@@ -52,14 +69,18 @@ class NormalLoginForm extends React.Component {
               <FormItem>
                 {getFieldDecorator('mobile', {
                   rules: [{required: true, message: '请输入您的账号'}]
-                })(<Input addonBefore={<p>手机号</p>} placeholder="请输入您的账号"/>)}
+                })(<Input addonBefore={<p>手机号</p>} placeholder="请输入您的账号" />)}
               </FormItem>
               <FormItem style={{float: 'left'}}>
                 {getFieldDecorator('verifyCode', {
                   rules: [{required: true, message: '请输入验证码'}]
-                })(<Input addonBefore={<p>验证码</p>} placeholder="请输入验证码"/>)}
+                })(<Input addonBefore={<p>验证码</p>} placeholder="请输入验证码" />)}
               </FormItem>
-              <Button id='btn' style={styles.btn} onClick={this.getCaptcha}>获取验证码</Button>
+              {
+                !this.state.isGetCaptcha ?
+                  <Button id='btn' style={styles.btn} onClick={this.getCaptcha}>获取验证码</Button> :
+                  <Button id='btn' style={styles.btn}>{this.state.num}s</Button>
+              }
               <FormItem>
                 {getFieldDecorator(
                   'password', {
@@ -68,7 +89,7 @@ class NormalLoginForm extends React.Component {
                       message: '请输入密码'
                     }]
                   }
-                )(<Input addonBefore={<p>密&nbsp;&nbsp;&nbsp; 码</p>} placeholder='请输入您的密码'/>)}
+                )(<Input addonBefore={<p>密&nbsp;&nbsp;&nbsp; 码</p>} placeholder='请输入您的密码' />)}
               </FormItem>
             </div>
             <div className={styles.loginButton}>

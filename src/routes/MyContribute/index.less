@@ -1,106 +1,206 @@
 :global {
-  .contribute{
-    width: 100%;
+  .ant-layout-content .flex-r {
+    flex-wrap: wrap;
   }
-  //CreateNew
-  .create {
-    padding-bottom: 30px;
-    .create-wrapper {
-      padding-bottom: 0;
-      border-bottom: 1px #ccc solid;
-      .create-text {
+  .uploadFile {
+    .ant-modal-content {
+      margin-top: 220px;
+      width:600px;
+      height:200px;
+      background:rgba(255,255,255,1);
+      .ant-radio-button-wrapper {
+        width: 200px !important;
+      }
+      .ant-btn {
+        position: relative;
+        margin-top: 35px;
+        width:200px;
+        height:64px;
+        background:rgba(31,207,185,1);
+        border-radius:5px;
+        font-size:20px;
+        font-weight:400;
+        color:rgba(255,255,255,1);
+        line-height:24px;
+      }
+      .ant-upload .ant-btn {
+        margin-left: 40px;
+        margin-right: 40px;
+      }
+    }
+  }
+
+  .ant-upload.ant-upload-select-picture-card {
+    border: none !important;
+    margin: 0 40px 40px 0;
+    > .ant-upload {
+      padding: 0;
+    }
+  }
+  .uploadImgBtn {
+    margin: 0 40px 40px 0;
+    width: 214px;
+    height: 214px;
+    padding: 7px;
+    background: rgba(31, 207, 185, .1);
+    box-sizing: border-box;
+    > div {
+      width: 200px;
+      height: 200px;
+      border: 2px dashed #1FCFB9;
+      > span {
+        line-height: normal;
+        font-size: 9em;
+        color: #1FCFB9;
+      }
+    }
+  }
+  .cell {
+    position: relative;
+    .cell-text.flex-r > button {
+      position: absolute;
+      top: 40px;
+      left: 356px;
+    }
+  }
+
+  .uploadBooks {
+    .ant-input#searchName {
+      width: 300px;
+      height: 48px;
+      border: 1px solid rgba(195, 198, 201, 1);
+      border-radius: 5px;
+    }
+    .ant-calendar-picker-input.ant-input {
+      width: 200px;
+      height: 48px;
+      border: 1px solid rgba(195, 198, 201, 1);
+      border-radius: 5px;
+    }
+    .btn .ant-btn {
+      width: 100px;
+      height: 48px;
+      background: rgba(108, 119, 128, 1);
+      border-radius: 5px;
+      span {
+        width: 36px;
         height: 18px;
-        margin-bottom: 23px;
         font-size: 18px;
-        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 1);
+      }
+    }
+    .anticon.anticon-calendar.ant-calendar-picker-icon {
+      width: 20px;
+      height: 20px;
+      color: #6C7780;
+    }
+
+  }
+
+  .create {
+    //position: relative;
+    header.flex-r {
+      justify-content: flex-start;
+      .create-title {
+        .ant-input {
+          padding: 16px 8px 15px 8px;
+          margin-right: 40px;
+          width: 528px;
+          height: 48px;
+          border: 1px solid rgba(195, 198, 201, 1);
+          border-radius: 5px;
+          box-sizing: border-box;
+          font-size: 16px;
+          font-weight: 400;
+          color: rgba(91, 98, 107, 1);
+          line-height: 24px;
+          opacity: 0.54;
+        }
+      }
+      .create-text {
+        font-size: 18px;
         font-weight: 400;
         color: rgba(91, 98, 107, 1);
         line-height: 24px;
       }
-      > header.flex-r {
-        width: 728px;
-        padding: 0;
-        .create-title {
-          padding-bottom: 32px;
-          input {
-            width: 528px;
-            height: 48px;
-            border: 1px solid rgba(195, 198, 201, 1);
-            border-radius: 5px;
-          }
+      .create-cover {
+        .ant-btn {
+          width: 160px;
+          height: 48px;
+          border: 1px solid rgba(195, 198, 201, 1);
+          border-radius: 5px;
+          font-size: 18px;
+          font-weight: 400;
+          color: rgba(108, 119, 128, 1);
+          line-height: 24px;
         }
-        .create-cover {
-          button {
-            width: 160px;
+      }
+
+    }
+    main {
+      .flex-r {
+        justify-content: flex-start;
+
+        .ant-radio-group {
+          .ant-radio-button-wrapper {
+            margin-right: 16px;
+            width: 120px;
             height: 48px;
             border: 1px solid rgba(195, 198, 201, 1);
             border-radius: 5px;
             font-size: 18px;
-            font-family: MicrosoftYaHei;
             font-weight: 400;
-            color: rgba(108, 119, 128, 1);
+            color: #6c7780;
+            //line-height: 24px;
+            text-align: center;
+
+          }
+          .ant-radio-button-wrapper-checked {
+            color: #fff;
+            background: #1fcfb9 !important;
+            box-shadow: -1px 0 0 0 #1fcfb9!important;
+            border-color: #1fcfb9 !important;
           }
         }
+        span:not(.ant-radio-button) {
+          display: inline-block;
+          margin-top: 8px;
+        }
+
       }
-      > main.flex-r {
-        padding-bottom: 0;
-        aside {
-          .flex-r {
-            justify-content: flex-start;
-            button {
-              width: 120px;
-              height: 48px;
-              margin-right: 16px;
-              border: 1px solid rgba(195, 198, 201, 1);
-              border-radius: 5px;
-              font-size: 18px;
-              color: rgba(108, 119, 128, 1);
-            }
-          }
-        }
-        .editor-wrapper {
-          width: 1123px;
-          height: 486px;
-          border: 1px #ccc solid;
+      .editor-wrapper {
+        width: 1123px;
+        height: 360px;
+        border-radius: 5px;
+        .my-component{
+          border: 1px solid #D4D4D4;
           border-bottom: 0;
-          border-radius: 5px;
-          border-bottom-right-radius: 0;
-          border-bottom-left-radius: 0;
-          .bf-content {
-            height: 394px;
+          .bf-content{
+            height: 300px;
           }
         }
       }
     }
-    > footer {
-      padding: 36px 0 0 40px;
+    footer {
+      width: calc(~"100% + 80px");
+      height: 120px;
+      margin-left: -40px;
+      padding: 36px 40px 36px;
       background: rgba(255, 255, 255, 1);
-      button {
+      box-shadow: 0px -1px 0px 0px rgba(221, 221, 221, 1);
+      .ant-btn {
+        margin-right: 24px;
         width: 160px;
         height: 48px;
         background: rgba(31, 207, 185, 1);
         border-radius: 5px;
         font-size: 18px;
-        font-family: MicrosoftYaHei;
         font-weight: 400;
         color: rgba(255, 255, 255, 1);
-        opacity: 0.4;
-        &:last-child {
-          margin-left: 24px;
-        }
-        &:hover, &:focus {
-          background: rgba(31, 207, 185, 1);
-          color: rgba(255, 255, 255, 1);
-          border: 0;
-          opacity: 1;
-        }
-        &.active {
-          background: rgba(31, 207, 185, 1);
-          color: rgba(255, 255, 255, 1);
-          border: 0;
-          opacity: 1;
-        }
+        line-height: 24px;
       }
     }
   }
+
 }

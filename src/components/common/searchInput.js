@@ -17,7 +17,7 @@ class searchInput extends Component {
     });
   };
   empty = (e) => {
-    console.log(this.userNameInput.value)
+    console.log(this.userNameInput.value);
     this.userNameInput.focus();
     this.setState({
       val: ''
@@ -31,14 +31,15 @@ class searchInput extends Component {
     return (
       <div>
         <Input
+          id='search'
           className='search'
           style={{width: 626, height: 48}}
           value={this.state.val}
           ref={node => {
             this.userNameInput = node;
           }}
-          placeholder="在云书馆里搜索"
-          prefix={<i className="iconfont icon-serch_ic_serch"/>}
+          placeholder={this.props.placeholder}
+          prefix={<i className="iconfont icon-serch_ic_serch" />}
           suffix={
             <div>
               {this.state.val ? <i className='iconfont icon-serch_ic_close' onClick={this.empty}></i> : null}
@@ -53,7 +54,7 @@ class searchInput extends Component {
                   color: 'white',
                   textAlign: 'center',
                   cursor: 'pointer'
-                }} onClick={this.search}
+                }} onClick={()=>this.props.search(this.state.val)}
               >搜索</span>
             </div>}
           onChange={this.onChangeUserName}

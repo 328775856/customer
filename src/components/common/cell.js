@@ -21,7 +21,7 @@ class cell extends Component {
           <Button>审核中</Button>
         </div>
         <div className='cell-img'>
-          <img src="http://fa.topitme.com/a/4f/9f/11248985417179f4fao.jpg" alt=""/>
+          <img src="http://fa.topitme.com/a/4f/9f/11248985417179f4fao.jpg" alt="" />
         </div>
         <div className='cell-btn'>
           <Button>预览</Button>

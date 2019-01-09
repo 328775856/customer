@@ -9,10 +9,10 @@ function RouterConfig({history}) {
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/" exact component={LoginPage}/>
-        <Route path="/reset" component={ResetPwd}/>
-        <Route path="/register" component={Register}/>
-        <Route path="/home" component={HomePage}/>
+        <Route path="/" exact component={LoginPage} />
+        <Route path="/reset" component={ResetPwd} />
+        <Route path="/register" component={Register} />
+        <Route path="/home" component={HomePage} />
       </Switch>
     </Router>
   );

@@ -1,0 +1,95 @@
+:global {
+  .pagination {
+    .ant-select-selection--single {
+      height: 48px;
+      padding: 8px 0;
+      font-size: 18px;
+    }
+    .ant-btn:nth-of-type(2) {
+      margin-right: 16px;
+    }
+  }
+  //  coverCell
+  .coverCell {
+    position: relative;
+    width: 214px;
+    height: 214px;
+    line-height: 214px;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    border: 1px #ddd solid;
+    font-size: 0;
+    overflow: hidden;
+    > img {
+      vertical-align: middle;
+      max-width: 100%;
+      max-height: 100%;
+      line-height: 0;
+      font-size: 0;
+    }
+    .closeBtn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: #1fcfb9;
+    }
+    &:hover {
+      .closeBtn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        display: block;
+      }
+      .imgCover {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        width: 214px;
+        height: 32px;
+        background: rgba(0, 0, 0, .54);
+        color: #fff;
+        line-height: 32px;
+        font-size: 16px;
+      }
+    }
+    > .imgCover {
+      display: none;
+    }
+    .checkbox{
+      position: absolute;
+      line-height: 0;
+    }
+  }
+  //  letterSearch
+  #root {
+    .letterSearch {
+      .ant-radio-button-wrapper-disabled {
+        opacity: .3;
+      }
+      .ant-anchor-wrapper {
+        overflow: hidden;
+      }
+      .ant-anchor-ink {
+        &:before {
+          content: unset;
+        }
+      }
+      .ant-anchor-link {
+        padding: 4px;
+      }
+      .ant-radio-button-wrapper-checked {
+        -webkit-box-shadow: unset;
+        box-shadow: unset;
+        color: #fff;
+        .ant-anchor-link-title{
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+

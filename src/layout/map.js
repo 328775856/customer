@@ -4,7 +4,8 @@ const BreadcrumbJosn = {
   //我的云书馆
   '/home/libraries/books': '我的图书',
   '/home/libraries/grouping': '我的分组',
-  '/home/libraries/uploadBooks': '上传图书',
+  '/home/libraries/groupingDetails': '分组书单',
+  '/home/libraries/books/uploadBooks': '上传图书',
   //我的借阅
   '/home/borrow': '我的阅历',
   //我的笔记
@@ -12,6 +13,7 @@ const BreadcrumbJosn = {
   '/home/noteView': '笔记详情',
   //我的档案
   '/home/record': '我的档案',
+  '/home/recordView': '档案详情',
   //我的资料
   '/home/datum': '我的资料',
   //我的投稿
@@ -26,6 +28,7 @@ const subMenuDefalutJson = {
   '/home/libraries/books': 'myBooks',
   '/home/libraries/books/uploadBooks': 'myBooks',
   '/home/libraries/grouping': 'myGrouping',
+  '/home/libraries/groupingDetails': 'myGrouping',
   //我的借阅
   '/home/borrow': 'borrow',
   //我的笔记
@@ -47,6 +50,7 @@ const keyDefalutJson = {
   //我的云书馆
   '/home/libraries/books': 'libraries',
   '/home/libraries/grouping': 'libraries',
+  '/home/libraries/groupingDetails': 'libraries',
   '/home/libraries/books/uploadBooks': 'libraries',
   //我的资料
   '/home/datum': 'datum',

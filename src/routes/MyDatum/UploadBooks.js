@@ -44,7 +44,7 @@ class Mybooks extends Component {
           return (
             <div className='options'>
               <span style={{display: 'inline-block', verticalAlign: 'middle', paddingRight: '40px'}}>
-                <Switch style={{marginRight: '20px'}}/>公开/隐藏
+                <Switch style={{marginRight: '20px'}} />公开/隐藏
               </span>
               <i style={{paddingRight: '40px'}} className='iconfont icon-ic_fengzu_default'>分组到</i>
               <i style={{paddingRight: '40px'}} className='iconfont icon-ic_shanchu_default'>删除</i>

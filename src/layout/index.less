@@ -5,6 +5,11 @@
 @import '/font/iconfont.css';
 //global
 :global {
+  #root {
+    .ant-table-placeholder {
+      display: none;
+    }
+  }
   //search
   .search {
     span {
@@ -41,15 +46,15 @@
         color: rgba(91, 98, 107, 1);
         opacity: 0.54;
       }
-      >button{
-        width:100px;
-        height:40px;
-        background:rgba(245,245,245,1);
-        border-radius:5px;
-        font-size:18px;
-        font-family:MicrosoftYaHei;
-        font-weight:400;
-        color:rgba(91,98,107,1);
+      > button {
+        width: 100px;
+        height: 40px;
+        background: rgba(245, 245, 245, 1);
+        border-radius: 5px;
+        font-size: 18px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(91, 98, 107, 1);
       }
     }
     .cell-img {
@@ -60,28 +65,36 @@
         border-radius: 5px;
       }
     }
-    .cell-btn{
+    .cell-btn {
       text-align: center;
-      >button{
-        width:120px;
-        height:48px;
-        background:rgba(31,207,185,1);
-        border-radius:5px;
-        font-size:18px;
-        font-family:MicrosoftYaHei;
-        font-weight:400;
-        color:rgba(255,255,255,1);
+      > button {
+        width: 120px;
+        height: 48px;
+        background: rgba(31, 207, 185, 1);
+        border-radius: 5px;
+        font-size: 18px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 1);
       }
     }
   }
   //common
-  input{
-    box-shadow: none!important;
+  input {
+    box-shadow: none !important;
   }
   ul.ant-dropdown-menu {
     margin-top: 16px;
   }
-  .myGrouping, .myBorrow, .myNote, .myRecord {
+  .ant-btn-primary:hover {
+    background: rgba(31, 207, 185, .7);
+    color: #fff!important;
+  }
+  .ant-modal-footer button + button {
+    background: #1fcfb9;
+    border-color: #1fcfb9;
+  }
+  .myGrouping, .myBorrow, .myIncome, .myNote, .myRecord {
     .flex-r > button {
       width: 160px;
       height: 48px;
@@ -230,9 +243,9 @@
   }
   // siderBar
   .siderBar {
-    width: 254px!important;
-    min-width: 254px!important;
-    max-width: 254px!important;
+    width: 254px !important;
+    min-width: 254px !important;
+    max-width: 254px !important;
     .ant-menu-submenu-open.ant-menu-submenu {
       background: RGBA(31, 207, 185, .1);
       .ant-menu-submenu-title {
@@ -301,9 +314,9 @@
   //content
   div.content {
     height: auto;
+    //max-width: 1568px;
   }
   .ant-layout-content {
-    width: 1568px;
     height: 681px;
     flex: none !important;
     border-radius: 5px;
@@ -357,7 +370,15 @@
         }
       }
     }
-    .ant-table-placeholder {
+    .ant-table-placeholder_new {
+      position: relative;
+      padding: 16px 16px;
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      text-align: center;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.45);
+      z-index: 1;
       min-height: 500px;
       .noData-wrapper {
         display: inline-block;
@@ -372,8 +393,10 @@
     }
     //myBooks
     .myBooks {
+      .table {
+        width: 80%;
+      }
       .ant-table table {
-        width: 1248px;
         height: 56px;
         .ant-table-thead th {
           background: #2B3A4A;
@@ -412,9 +435,16 @@
               }
             }
           }
+          .bookName {
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: nowrap;
+            padding-bottom: 0;
+          }
         }
       }
       .sider {
+        width: 20%;
         h5 {
           width: 80px;
           height: 56px;
@@ -500,7 +530,26 @@
         }
       }
     }
-
+    .myIncome {
+      .pagination {
+        flex: 1 0 auto;
+        text-align: right;
+      }
+      .ant-dropdown-trigger {
+        width: 48px;
+        height: 48px;
+        line-height: 48px;
+        padding: 0;
+        margin-left: 40px;
+        background: white;
+        color: #1FCFB9;
+        .icon-ic_more {
+          font-size: 46px;
+          &:before {
+          }
+        }
+      }
+    }
     //myNote
     .myNote {
       .flex-r {
@@ -564,11 +613,19 @@
           box-shadow: none;
         }
       }
+      .options {
+        a {
+          color: rgba(0, 0, 0, .65);
+        }
+        i {
+          cursor: pointer;
+        }
+      }
     }
     //uploadBooks
     .uploadBooks {
       text-align: center;
-      label {
+      .btn label {
         width: 160px;
         height: 48px;
         line-height: 48px;
@@ -614,6 +671,7 @@
   //myDatum
   .myDatum {
     .flex-r {
+      flex-flow: row nowrap;
       section {
         &:first-child {
           width: 360px;
@@ -655,41 +713,41 @@
   .contribute {
     flex-wrap: wrap;
     justify-content: flex-start;
-    .create{
-      width:496px;
-      height:431px;
+    .create {
+      width: 496px;
+      height: 431px;
       margin: 0 20px 40px 20px;
-      background:rgba(31,207,185,0.1);
-      box-shadow:0px 0px 0px rgba(161,167,179,0.87);
+      background: rgba(31, 207, 185, 0.1);
+      box-shadow: 0px 0px 0px rgba(161, 167, 179, 0.87);
       border: 1px #ccc solid;
-      border-radius:5px;
-      >i:before{
+      border-radius: 5px;
+      > i:before {
         font-size: 50px;
         color: #1FCFB9;
       }
-      >p{
-        font-size:20px;
-        font-family:MicrosoftYaHei;
-        font-weight:400;
-        color:rgba(91,98,107,1);
+      > p {
+        font-size: 20px;
+        font-family: MicrosoftYaHei;
+        font-weight: 400;
+        color: rgba(91, 98, 107, 1);
       }
     }
-    .cell{
+    .cell {
       margin: 0 20px 40px 20px
     }
   }
   //noteView
-  .noteView{
+  .noteView {
     width: 100%;
-    display:flex;
+    display: flex;
     flex-flow: row wrap;
-    div{
+    div {
       width: 34%;
       height: 100px;
       margin: 0 10% 3% 0;
       display: inline-block;
       background: white;
-      &:nth-of-type(2){
+      &:nth-of-type(2) {
         height: 500px;
       }
     }
@@ -711,7 +769,7 @@
     }
   }
   .hide {
-    display: none;
+    display: none !important;
   }
   .clearfix {
     zoom: 1;
@@ -723,6 +781,50 @@
       height: 0
     }
   }
+
+  .masonry {
+    justify-content: flex-start;
+    .image-element-class {
+      margin: 10px !important;
+      padding: 32px;
+      width: 764px;
+      height: auto;
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 0 4px 0 rgba(108, 119, 128, 0.87);
+      border-radius: 5px;
+      .title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        .bookName {
+          font-size: 20px;
+          font-weight: 400;
+          color: rgba(91, 98, 107, 1);
+          margin-right: 15px;
+        }
+        .createTime {
+          font-size: 16px;
+          font-weight: 400;
+          color: rgba(108, 119, 128, 1);
+        }
+        .iconfont.icon-ic_delete {
+          position: absolute;
+          top: 9px;
+          right: 40px;
+          font-size: 40px !important;
+          color: #1FCFB9;
+        }
+
+      }
+      .bookContent {
+        font-size: 18px;
+        font-weight: 400;
+        color: rgba(91, 98, 107, 1);
+        line-height: 30px;
+      }
+    }
+  }
+
 }
 
 //login
@@ -733,7 +835,7 @@
 
 //home
 .homePage {
-  min-width: 1920px;
+  width: 100%;
   height: 100%;
   a {
     text-decoration: none;
@@ -794,7 +896,7 @@
         font-family: MicrosoftYaHei;
         color: rgba(31, 207, 185, 1);
         text-align: center;
-        &:hover{
+        &:hover {
           background: rgba(31, 207, 185, .3);
         }
       }

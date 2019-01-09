@@ -1,137 +1,205 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
+import {connect} from 'dva';
 import Pagination from '../../components/common/pagination';
 import SearchInput from '../../components/common/searchInput';
 import Table from '../../components/common/table';
-import {Button, Menu, Dropdown} from 'antd';
+import {Button, Dropdown, Menu,Modal} from 'antd';
+import{defaultPage,getPreMonth,isEmpty} from '../../utils/utils';
+import {formatTime} from '../../utils/utils';
 
 class Index extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    dataSource: [],
+    pagination:{},
+    value:{},
+    amount:0,
+    page:defaultPage(),
+    currentPage:1,
+    visible: false
+  };
 
-    // this.state = {
-    //   dataSource: [{
-    //     key: '1',
-    //     bookName: '书名1',
-    //     source: '传',
-    //     grouping: '文学',
-    //     size: '3333kb',
-    //     createTime: '2018/5/13',
-    //     format: 'EPUB',
-    //     options: 'asd'
-    //   }, {
-    //     key: '2',
-    //     bookName: 'sdfsd',
-    //     source: 'asd',
-    //     grouping: 'asd',
-    //     size: 'asd',
-    //     createTime: 'ads',
-    //     format: 'ads',
-    //     options: 'asd'
-    //   }],
-    //   columnsData: [{
-    //     title: '书名',
-    //     dataIndex: 'bookName',
-    //     key: 'bookName',
-    //     width: 234,
-    //     render(text, record, index) {
-    //       return (
-    //         <div>{record.size}</div>
-    //       );
-    //     }
-    //   }, {
-    //     title: '来源',
-    //     dataIndex: 'source',
-    //     key: 'source',
-    //     width: 96,
-    //     render() {
-    //       return (
-    //         <div>
-    //           <i className='iconfont icon-ic_chuan'></i>
-    //         </div>
-    //       );
-    //     }
-    //   }, {
-    //     title: '分组',
-    //     dataIndex: 'grouping',
-    //     key: 'grouping',
-    //     width: 96
-    //   }, {
-    //     title: '大小',
-    //     dataIndex: 'size',
-    //     key: 'sieze',
-    //     width: 96
-    //   }, {
-    //     title: '创建时间',
-    //     dataIndex: 'createTime',
-    //     key: 'createTime',
-    //     width: 131
-    //   }, {
-    //     title: '格式',
-    //     dataIndex: 'format',
-    //     key: 'format',
-    //     width: 136
-    //   }, {
-    //     title: '操作',
-    //     dataIndex: 'options',
-    //     key: 'options',
-    //     render() {
-    //       return (
-    //         <div className='options'>
-    //           <span style={{display: 'inline-block', verticalAlign: 'middle', paddingRight: '40px'}}>
-    //             <Switch style={{marginRight: '20px'}}/>公开/隐藏
-    //           </span>
-    //           <i style={{paddingRight: '40px'}} className='iconfont icon-ic_fengzu_default'>分组到</i>
-    //           <i style={{paddingRight: '40px'}} className='iconfont icon-ic_shanchu_default'>删除</i>
-    //         </div>
-    //       );
-    //     }
-    //   }]
-    // };
-    this.state = {
-      dataSource: [],
-      columnsData: [{
-        title: '全部分组',
-        dataIndex: 'allGrouping',
-        key: 'allGrouping'
-      }, {
-        title: '创建时间',
-        dataIndex: 'createTime',
-        key: 'createTime'
-      }, {
-        title: '操作',
-        dataIndex: 'options',
-        key: 'options',
-        render() {
-          return (
-            <div className='options'>
-              <i style={{paddingRight: '40px'}} className='iconfont icon-ic_fengzu_default'>查看</i>
-              <i style={{paddingRight: '40px'}} className='iconfont icon-ic_fengzu_default'>重命名</i>
-              <i style={{paddingRight: '40px'}} className='iconfont icon-ic_shanchu_default'>删除</i>
-            </div>
-          );
-        }
-      }]
-    };
+  refresh = (amount) =>{
+    const {value,page} = this.state;
+    value.lessTime = getPreMonth(amount);
+    this.props.dispatch({
+      type: 'myborrow/bookProgress',
+      payload: {
+        data:value,
+        page: page
+      }
+    });
+    this.setState({
+      amount: isEmpty(amount) ? 0 : amount
+    });
+  };
+
+  componentDidMount() {
+    this.refresh(0);
   }
 
+  queryThreeMonths = (amount,e) =>{
+    e.preventDefault();
+    this.setState({
+      page:defaultPage()
+    },function(){
+      this.refresh(amount);
+    });
+  };
+
+  //三个月之前的阅历按月份倒序 amount=2
+  queryLastReadMonthByGroup = (amount,e) =>{
+    e.preventDefault();
+    const {dispatch} = this.props;
+    const {page} = this.state;
+    dispatch({
+      type:'myborrow/queryLastReadMonthByGroup',
+      payload:{
+        data:{lastReadtime:getPreMonth(amount)},
+        page:page
+      }
+    });
+  };
+
+  //查询具体月份的阅历
+  queryProgressByMonth =() =>{
+    const {dispatch} = this.props;
+    const {page} = this.state;
+    dispatch({
+      type:'myborrow/queryProgressByMonth',
+      payload:{
+        data:{lastReadtime:201811},
+        page:page
+      }
+    });
+  };
+
+  UNSAFE_componentWillReceiveProps(r) {
+    const {total,pageNo,pageSize,rows,pages} = r.myborrow;
+    const pagination ={
+      pageSize: pageSize,
+      currentPage: this.state.currentPage,
+      pages: pages
+    };
+    this.setState({
+      dataSource: rows,
+      pagination
+    });
+  }
+
+  search = (val) => {
+    const {amount} = this.amount;
+    this.setState({
+      value:{
+        search: val
+      },
+      page:defaultPage()
+    },function () {
+      this.refresh(amount);
+    });
+  };
+
+  removerBookProgress = (bookUserId) => {
+    const {dispatch} = this.props;
+    const cb = this.callback;
+    Modal.confirm({
+      title: '确定删除吗？',
+      onOk() {
+        dispatch({
+          type: 'myborrow/deleteBookProgress',
+          payload: {
+            'bookUserId': bookUserId
+          },
+          callback: cb
+        });
+      }
+    });
+  };
+
+  callback = (r) => {
+    if (r.status === 200) {
+      this.refresh();
+    }
+  };
+
+
+  changePage = (val) => {
+    const {formValues} = this.state;
+    const page = {
+      pageSize: 2,
+      pageNo: val
+    };
+    this.setState({
+      page,
+      currentPage: val
+    }, function () {
+      this.refresh(formValues, page);
+    });
+  };
+
   render() {
-    const menu = (
+    const columnsData =[{
+      title:'图书用户Id',
+      dataIndex:'bookUserId',
+      key:'bookUserId',
+      className:'hide'
+    },{
+      title:'书名',
+      dataIndex:'bookName',
+      key:'bookName',
+      render: (text, record) =>
+        <div className="bookName">
+          <img src={record.coverPath} style={{ width: '42px', height: '60px', marginRight: '15px', borderRadius:'5px' }} alt="" />{record.bookName}
+        </div>
+    },{
+      title:'借阅状态',
+      dataIndex:'borrowStatus',
+      key:'borrowStatus',
+      render:(text,record) =>text === 1 ? '借阅中':'已过期'
+    },{
+      title:'阅读进度',
+      dataIndex:'readProgress',
+      key:'readProgress',
+      render: (text, record) => <Fragment>{text}%</Fragment>
+    },{
+      title:'借阅时间',
+      dataIndex:'borrowTime',
+      key:'borrowTime',
+      render: (text, record) => <Fragment>{formatTime(text)}</Fragment>
+    },{
+      title:'操作',
+      dataIndex:'options',
+      render:(text,record) =>
+        <div className='options'>
+          <i style={{paddingRight: '40px'}} className='iconfont icon-ic_shanchu_default' onClick={() => this.removerBookProgress(record.bookUserId)}>删除</i>
+          {/*<i style={{paddingRight: '40px'}} className='iconfont icon-ic_shanchu_default' onClick={() => this.queryProgressByMonth()}>测试</i>*/}
+        </div>
+
+    }];
+    const menu =
       <Menu>
         <Menu.Item key="0">
-          <a href="http://www.alipay.com/">1st menu item</a>
+          <a href="#" onClick={(e)=>this.queryThreeMonths(2,e)}>近三个月</a>
         </Menu.Item>
         <Menu.Item key="1">
-          <a href="http://www.taobao.com/">2nd menu item</a>
+          <a
+            href="#" onClick={(e)=>this.queryLastReadMonthByGroup(2,e)}
+          >三个月前</a>
         </Menu.Item>
-        <Menu.Divider/>
-        <Menu.Item key="3">3rd menu item</Menu.Item>
+        {/*<Menu.Divider />*/}
+        {/*<Menu.Item key="3">3rd menu item</Menu.Item>*/}
       </Menu>
-    );
+    ;
+
+    const propsItem = {
+      page: this.state.pagination,
+      currentPage: this.state.currentPage,
+      changePage: this.changePage
+    };
     return (
       <div className='myBorrow'>
         <section className='flex-r'>
-          <SearchInput></SearchInput>
-          <Pagination className='pagination'></Pagination>
+          <SearchInput search={this.search} placeholder='在我的阅历里搜索'></SearchInput>
+          <Pagination className='pagination' {...propsItem}></Pagination>
           <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
             <Button>
               <i className='iconfont icon-ic_more'></i>
@@ -139,11 +207,20 @@ class Index extends Component {
           </Dropdown>
         </section>
         <section className='flex-r'>
-          <Table dataSource={this.state.dataSource} columnsData={this.state.columnsData} message='没有匹配的书籍哦！'></Table>
+          <Table
+            dataSource={this.state.dataSource}
+            columnsData={columnsData}
+            pagination={false}
+            rowKey='bookUserId'
+            message='没有匹配的书籍哦！'
+          >
+          </Table>
         </section>
       </div>
     );
   }
 }
 
-export default Index;
+export default connect(({myborrow}) => ({
+  myborrow
+}))(Index);

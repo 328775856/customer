@@ -1,147 +1,177 @@
-import React, {Component} from 'react';
-import Pagination from '../../components/common/pagination';
+import React, {Component, Fragment} from 'react';
 import LetterSearch from '../../components/common/letterSearch';
-import Table from '../../components/common/table';
-import {Button, Icon, Modal, Input} from 'antd';
+import {Button, Icon, Modal, Input, Table} from 'antd';
+import {connect} from 'dva';
+import {isEmpty} from "../../utils/utils";
+import {Link} from "dva/router";
+
+let arr = [];
 
 class Index extends Component {
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //   dataSource: [{
-    //     key: '1',
-    //     bookName: '书名1',
-    //     source: '传',
-    //     grouping: '文学',
-    //     size: '3333kb',
-    //     createTime: '2018/5/13',
-    //     format: 'EPUB',
-    //     options: 'asd'
-    //   }, {
-    //     key: '2',
-    //     bookName: 'sdfsd',
-    //     source: 'asd',
-    //     grouping: 'asd',
-    //     size: 'asd',
-    //     createTime: 'ads',
-    //     format: 'ads',
-    //     options: 'asd'
-    //   }],
-    //   columnsData: [{
-    //     title: '书名',
-    //     dataIndex: 'bookName',
-    //     key: 'bookName',
-    //     width: 234,
-    //     render(text, record, index) {
-    //       return (
-    //         <div>{record.size}</div>
-    //       );
-    //     }
-    //   }, {
-    //     title: '来源',
-    //     dataIndex: 'source',
-    //     key: 'source',
-    //     width: 96,
-    //     render() {
-    //       return (
-    //         <div>
-    //           <i className='iconfont icon-ic_chuan'></i>
-    //         </div>
-    //       );
-    //     }
-    //   }, {
-    //     title: '分组',
-    //     dataIndex: 'grouping',
-    //     key: 'grouping',
-    //     width: 96
-    //   }, {
-    //     title: '大小',
-    //     dataIndex: 'size',
-    //     key: 'sieze',
-    //     width: 96
-    //   }, {
-    //     title: '创建时间',
-    //     dataIndex: 'createTime',
-    //     key: 'createTime',
-    //     width: 131
-    //   }, {
-    //     title: '格式',
-    //     dataIndex: 'format',
-    //     key: 'format',
-    //     width: 136
-    //   }, {
-    //     title: '操作',
-    //     dataIndex: 'options',
-    //     key: 'options',
-    //     render() {
-    //       return (
-    //         <div className='options'>
-    //           <span style={{display: 'inline-block', verticalAlign: 'middle', paddingRight: '40px'}}>
-    //             <Switch style={{marginRight: '20px'}}/>公开/隐藏
-    //           </span>
-    //           <i style={{paddingRight: '40px'}} className='iconfont icon-ic_fengzu_default'>分组到</i>
-    //           <i style={{paddingRight: '40px'}} className='iconfont icon-ic_shanchu_default'>删除</i>
-    //         </div>
-    //       );
-    //     }
-    //   }]
-    // };
-    this.state = {
-      dataSource: [],
-      columnsData: [{
-        title: '全部分组',
-        dataIndex: 'allGrouping',
-        key: 'allGrouping'
-      }, {
-        title: '创建时间',
-        dataIndex: 'createTime',
-        key: 'createTime'
-      }, {
-        title: '操作',
-        dataIndex: 'options',
-        key: 'options',
-        render() {
-          return (
-            <div className='options'>
-              <i style={{paddingRight: '40px'}} className='iconfont icon-ic_fengzu_default'>查看</i>
-              <i style={{paddingRight: '40px'}} className='iconfont icon-ic_fengzu_default'>重命名</i>
-              <i style={{paddingRight: '40px'}} className='iconfont icon-ic_shanchu_default'>删除</i>
-            </div>
-          );
-        }
-      }],
-      visible: false
-    };
+  state = {
+    dataSource: [],
+    title: '',
+    bookReaddocGroupId: '',
+    value: ''
+  };
+
+  refresh = () => {
+    this.props.dispatch({
+      type: 'myRecord/userBookReadDocGroups'
+    });
+  };
+
+  componentDidMount() {
+    this.refresh();
   }
-  addModalShow = () => {
+
+  UNSAFE_componentWillReceiveProps(r) {
+    this.setState({
+      dataSource: r.myRecord,
+    });
+  }
+
+  addModalShow = (bookReaddocGroupId, readdocGroupName) => {
+    if (isEmpty(bookReaddocGroupId)) {
+      this.setState({title: '新建档案', bookReaddocGroupId: ''});
+    } else {
+      this.setState({title: '重命名', bookReaddocGroupId: bookReaddocGroupId});
+    }
     this.setState({visible: true});
   };
+
   handleOk = () => {
+    const {bookReaddocGroupId} = this.state;
+    const cb = this.callback;
+    if (isEmpty(bookReaddocGroupId)) {
+      this.props.dispatch({
+        type: 'myRecord/addUserBookReadDocGroup',
+        payload: {
+          readdocGroupName: this.state.value
+        },
+        callback: cb
+      });
+    } else {
+      this.props.dispatch({
+        type: 'myRecord/updateUserBookReadDocGroup',
+        payload: {
+          readdocGroupName: this.state.value,
+          bookReaddocGroupId: bookReaddocGroupId
+        },
+        callback: cb
+      });
+    }
     this.setState({visible: false});
+  };
+
+  callback = (r) => {
+    if (r.status === 200) {
+      this.setState({bookReaddocGroupId: ''});
+      this.refresh();
+    }
   };
   handleCancel = () => {
     this.setState({visible: false});
   };
+  change = (e) => {
+    this.setState({value: e.target.value});
+  };
+
+  removeBookGroup = (bookReaddocGroupId) => {
+    const cb = this.callback;
+    const {dispatch} = this.props;
+    Modal.confirm({
+      title: '确认删除吗？',
+      onOk() {
+        dispatch({
+          type: 'myRecord/deleteUserBookReadDocGroup',
+          payload: {
+            bookReaddocGroupId: bookReaddocGroupId
+          },
+          callback: cb
+        });
+      }
+    });
+  };
+
   render() {
+    arr = [];
+    for (let i in this.state.dataSource) {
+      arr.push(i);
+    }
+    const columnsData = [{
+      title: '分组Id',
+      dataIndex: 'bookReaddocGroupId',
+      key: 'bookReaddocGroupId',
+      className: 'hide',
+    }, {
+      title: '档案',
+      dataIndex: 'readdocGroupName',
+      key: 'readdocGroupName',
+      width:600,
+    }, {
+      title: '操作',
+      dataIndex: 'options',
+      key: 'options',
+      render: (text, record) =>
+        <div className='options'>
+          {/*<i
+            style={{paddingRight: '40px'}} className='iconfont icon-ic_fengzu_default'
+            onClick={() => this.detail()}
+          >查看</i>*/}
+          <Link
+            to={`/home/recordView/${record.bookReaddocGroupId}`}
+            className="recordView"
+          >
+            <i
+              style={{paddingRight: '40px'}} className='iconfont icon-ic_fengzu_default'
+            >查看</i>
+          </Link>
+
+          <i
+            style={{paddingRight: '40px'}} className='iconfont icon-ic_fengzu_default'
+            onClick={() => this.addModalShow(record.bookReaddocGroupId, record.readdocGroupName)}
+          >重命名</i>
+          <i
+            style={{paddingRight: '40px'}} className='iconfont icon-ic_shanchu_default'
+            onClick={() => this.removeBookGroup(record.bookReaddocGroupId)}
+          >删除</i>
+        </div>
+
+    }];
     return (
       <div className='myRecord'>
         <section className='flex-r'>
-          <Button onClick={this.addModalShow}>
+          <Button onClick={() => this.addModalShow()}>
             <Icon type="plus" />新建档案夹
           </Button>
-          <LetterSearch></LetterSearch>
-          <Pagination className='pagination'></Pagination>
+          <LetterSearch list={arr} />
         </section>
-        <section className='flex-r'>
-          <Table dataSource={this.state.dataSource} columnsData={this.state.columnsData} message='没有匹配的书籍哦！'></Table>
-        </section>
+        <Table
+          dataSource={[]} columns={columnsData} message='没有匹配的笔记哦！'
+          pagination={false}
+          rowKey='bookReaddocGroupId'
+        />
+        {arr.map((el, index) =>
+          <Fragment
+            key={index}
+          >
+            <span id={el} style={{fontSize:'18px'}}>{el}</span>
+            <Table
+              showHeader={false}
+              dataSource={this.state.dataSource[el]} columns={columnsData} message='没有匹配的笔记哦！'
+              pagination={false}
+              rowKey='bookReaddocGroupId'
+            />
+          </Fragment>
+        )}
         <Modal
           centered
           visible={this.state.visible}
           closable={false}
-          title='新建档案夹'
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
+          title={this.state.title}
+          okText='确定'
+          cancelText='取消'
           footer={[
             <Button key="submit" onClick={this.handleOk}>
               确定
@@ -149,11 +179,13 @@ class Index extends Component {
             <Button key="back" onClick={this.handleCancel}>取消</Button>
           ]}
         >
-          <Input placeholder='请输入档案名称' />
+          <Input id='recordId' onChange={this.change} value={this.state.value} placeholder='请输入档案名称' />
         </Modal>
       </div>
     );
   }
 }
 
-export default Index;
+export default connect(({myRecord}) => ({
+  myRecord
+}))(Index);

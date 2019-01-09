@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Editor from '../../components/common/editor'
+import Editor from '../../components/common/editor';
 
 class index extends Component {
   // constructor(props) {
